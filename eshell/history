@@ -1,0 +1,128 @@
+bundle exec rake
+bundle exec rake
+cd ~/scripts/ruby/
+ls
+ruby foobar.rb 
+ruby foobar.rb 
+cd ../../projects/
+ls
+cd logstash/
+ls
+ls
+cd spec/
+pry
+mkdir saved-session
+ls
+ls
+pwd
+ls
+thor list
+thor list
+thor list
+thor list
+thor list
+thor list
+thor list
+thor list
+thor list
+thor lloc:strip
+thor lloc:strip
+thor lloc:strip
+thor lloc:strip
+thor lsit
+thor list
+thor list
+thor list
+thor list
+thor list
+thor list
+thor lloc:strip
+thor lloc:strip ReviewStream.php.nc 
+ls
+thor lloc:count ReviewStream.php.nc 
+thor lloc:count ReviewStream.php.nc -s
+thor lloc:count ReviewStream.php.nc -s
+thor lloc
+thor lloc
+thor lloc
+thor lloc:strip_comments ReviewStream.php.nc 
+thor lloc:strip_comments ReviewStream.php.nc 
+thor lloc:strip_comments ReviewStream.php.nc | wc -l
+wc -l ReviewStream.php.nc 
+cd
+ls
+cd projects/
+ls
+sh p4.sh 
+sh p4.sh 
+chmod +x p4.sh 
+./p4.sh 
+./p4.sh 
+/usr/env
+/usr/bin/enchant
+/usr/bin/env
+./p4.sh 
+cd ../ruby/
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+pry
+pry
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby string_perm.rb 
+ruby swap_linked_list.rb
+ruby variables.rb 
+ruby variables.rb 
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby commit_linter.rb m
+ruby -v
+which ruby
+ls
+ls -al
+cd ../../create-issue-rb/
+ls
+touch create-issue
+chmod a+x create-issue 
+rm _index.html.haml 
+git st
+git d
+ls
+cd ..
+ls
+cd ..
+ls
+git st
