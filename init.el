@@ -1,5 +1,8 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
+(require 'package)
+(setq package-archives (cons '("tromey" . "http://tromey.com/elpa/") package-archives))
+(package-initialize)
 
 (setq url-proxy-services
       '(("http" . "13.147.7.31:8000")
@@ -8,10 +11,11 @@
 (push "/usr/local/bin" exec-path)
 (add-to-list 'load-path "~/.emacs.d")
 
-(setq-default tab-width 2)
-(setq-default indent-tabs-mode nil)
-
 (fset 'yes-or-no-p 'y-or-n-p)
+
+(setq-default
+ tab-width 2
+ indent-tabs-mode nil)
 
 (setq
  auto-save-default nil
@@ -34,7 +38,13 @@
  next-line-add-newlines nil
  plsql-indent 4
  require-final-newline nil
- truncate-partial-width-windows nil)
+ nrepl-hide-special-buffers t
+ truncate-partial-width-windows nil
+ x-select-enable-clipboard t
+ x-select-enable-primary t
+ save-interprogram-paste-before-kill t
+ apropos-do-all t
+ mouse-yank-at-point t)
 
 (blink-cursor-mode t)
 (column-number-mode t)
@@ -42,7 +52,6 @@
 (global-font-lock-mode t)
 (icomplete-mode t)
 (ido-mode t)
-;; (iswitchb-mode t)
 (line-number-mode t)
 (scroll-bar-mode -1)
 (set-fringe-style -1)
@@ -65,10 +74,6 @@
 ; Always delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(global-set-key (kbd "C-x v") 'switch-to-buffer)
-(global-set-key (kbd "C-c g") 'goto-line)
-(global-set-key (kbd "C-c r") 'query-replace-regexp)
-
 (defun ruby-mode-hook ()
   (autoload 'ruby-mode "ruby-mode" nil t)
   (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
@@ -86,9 +91,6 @@
                                (define-key ruby-mode-map (kbd "<f5>") 'rspec-toggle-spec-and-target)
                                (define-key ruby-mode-map (kbd "<f6>") 'rspec-verify-all)
                                (define-key ruby-mode-map (kbd "<f7>") 'rspec-verify))))
-
-;; This should be called as a hook with el-get-sources, but fuck if i can figure it out
-(ruby-mode-hook)
 
 (defun rhtml-mode-hook ()
   (autoload 'rhtml-mode "rhtml-mode" nil t)
@@ -108,56 +110,14 @@
                               (setq css-indent-level 2)
                               (setq css-indent-offset 2))))
 
-(require 'package)
-(setq package-archives (cons '("tromey" . "http://tromey.com/elpa/") package-archives))
-(package-initialize)
-
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(require 'el-get)
-
-(setq el-get-sources
-      '((:name ruby-mode
-               :type elpa
-               :load "ruby-mode.el"
-               :after (progn (ruby-mode-hook)))
-        (:name inf-ruby :type elpa)
-        (:name ruby-compilation :type elpa)
-        (:name css-mode
-               :type elpa
-               :after (progn (css-mode-hook)))
-        (:name rvm
-               :type git
-               :url "http://github.com/djwhitt/rvm.el.git"
-               :load "rvm.el"
-               :compile ("rvm.el")
-               :after (progn (rvm-use-default)))
-        (:name rhtml
-               :type git
-               :url "http://github.com/crazycode/rhtml.git"
-               :features rhtml-mode
-               :after (progn (rhtml-mode-hook)))
-        (:name yaml-mode
-               :type git
-               :url "http://github.com/yoshiki/yaml-mode.git"
-               :features yaml-mode
-               :after (progn (yaml-mode-hook)))
-        ))
-(el-get 'sync)
-
-(autopair-mode t)
-(electric-pair-mode t)
-
+(global-set-key (kbd "C-x v") 'switch-to-buffer)
+(global-set-key (kbd "C-c g") 'goto-line)
+(global-set-key (kbd "C-c r") 'query-replace-regexp)
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
-(setq x-select-enable-clipboard t
-      x-select-enable-primary t
-      save-interprogram-paste-before-kill t
-      apropos-do-all t
-      mouse-yank-at-point t)
 
-(setq nrepl-hide-special-buffers t)
 ;; (setq cider-popup-stacktraces nil)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'cider-mode)
@@ -167,7 +127,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))))
+ '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
