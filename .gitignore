@@ -1,3 +1,5 @@
 session*
 auto-save-list/
 saved-session/
+.cask/
+lib/

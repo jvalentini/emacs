@@ -13,11 +13,14 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(setq-default
- tab-width 2
- indent-tabs-mode nil)
+;; Tab = 4 spaces
+(setq default-tab-width 4
+      tab-width 4)
+(setq-default tab-width 4
+              indent-tabs-mode nil)
 
 (setq
+ apropos-do-all t
  auto-save-default nil
  byte-compile-verbose nil
  byte-compile-warnings nil
@@ -32,35 +35,70 @@
  grep-command "grep -rin"
  hippie-expand-dabbrev-as-symbol nil
  ido-enable-flex-matching t
+ ido-directory-too-big nil
  inhibit-splash-screen t
  inhibit-startup-message t
  make-backup-files nil
+ mouse-yank-at-point t
  next-line-add-newlines nil
+ nrepl-hide-special-buffers t
  plsql-indent 4
  require-final-newline nil
- nrepl-hide-special-buffers t
+ save-interprogram-paste-before-kill t
  truncate-partial-width-windows nil
  x-select-enable-clipboard t
- x-select-enable-primary t
- save-interprogram-paste-before-kill t
- apropos-do-all t
- mouse-yank-at-point t)
+ x-select-enable-primary t)
 
 (blink-cursor-mode t)
 (column-number-mode t)
 (delete-selection-mode t)
+(desktop-save-mode t)
 (global-font-lock-mode t)
 (icomplete-mode t)
 (ido-mode t)
 (line-number-mode t)
-(scroll-bar-mode -1)
 (set-fringe-style -1)
 (show-paren-mode t)
 (toggle-truncate-lines -1)
-(tool-bar-mode -1)
 (tooltip-mode -1)
 (transient-mark-mode t)
-(desktop-save-mode t)
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode -1))
+(when (fboundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
+
+;; Smart duplicate buffer renaming
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator "|")
+(setq uniquify-after-kill-buffer-p nil)
+(setq uniquify-ignore-buffers-re "^\\*")
+
+;; Save point for every file
+(require 'saveplace)
+(setq-default save-place t)
+
+;; Disable warning for narrow to region.
+(put 'narrow-to-region 'disabled nil)
+
+;; Comments should be red.
+(set-face-foreground 'font-lock-comment-face "red")
+
+;; Allow me to use these.
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region   'disabled nil)
+
+;; Customize ibuffer formatting.
+(setq ibuffer-formats '((mark modified read-only " "
+                              (name 35 35 :left :elide)
+                              " "
+                              (size 9 -1 :right)
+                              " "
+                              (mode 16 16 :left :elide)
+                              " " filename-and-process)
+                        (mark " "
+                              (name 16 -1)
+                              " " filename)))
 
 ;; Highlight trailing whitespace in a hideous red color.
 (add-hook 'find-file-hook
@@ -70,6 +108,11 @@
               (show-paren-mode 1)
               (setq indicate-empty-lines t
                     show-trailing-whitespace t))))
+
+(defun show-file-name ()
+  "Show the full path file name in the minibuffer."
+  (interactive)
+  (message (buffer-file-name)))
 
 ; Always delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -122,12 +165,70 @@
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'cider-mode)
 
+(load "custom/my-erc")
+(load "lib/amici")
+
+;; autoload modes
+(autoload 'plsql-mode   "plsql")
+(autoload 'sql-mode     "sql")
+(autoload 'php-mode     "php-mode")
+(autoload 'yaml-mode    "yaml-mode")
+(autoload 'sqlplus-mode "sqlplus")
+(autoload 'magit-status "magit" nil t)
+
+;; YAML
+(add-hook 'yaml-mode-hook 'c-subword-mode)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(defun backward-delete-word (arg)
+  "Delete characters backward until encountering the beginning of a word.
+With argument ARG, do this that many times."
+  (interactive "p")
+  (delete-region (point) (progn (backward-word arg) (point))))
+
+(defun delete-enclosed-text ()
+  "Delete texts between any pair of delimiters."
+  (interactive)
+  (save-excursion
+    (let (p1 p2)
+      (skip-chars-backward "^([<>“'") (setq p1 (point))
+      (skip-chars-forward "^)]<>”'") (setq p2 (point))
+      (delete-region p1 p2))))
+
+;; Backups
+(defconst use-backup-dir t)
+(setq backup-directory-alist (quote ((".*" . "~/.backups/")))
+      version-control t                ; Use version numbers for backups
+      kept-new-versions 16             ; Number of newest versions to keep
+      kept-old-versions 2              ; Number of oldest versions to keep
+      delete-old-versions t            ; Ask to delete excess backup versions?
+      backup-by-copying-when-linked t) ; Copy linked files, don't rename.
+
+;; unicode support
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+(defun my-get-db ()
+  "Given a matter schema, find the name of the production database."
+  (interactive)
+  (message (shell-command-to-string (concat "~/scripts/shell/get_db.sh " (read-from-minibuffer "Matter code: ") ""))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))))
+ '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(sql-product (quote oracle))
+ '(plsql-indent 4)
+ '(mode-require-final-newline nil)
+ '(ibuffer-saved-filter-groups (quote (("justin" ("P4 Output" (name . "*P4")) ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode)) ("P4 Output" (name . "*P4"))) ("justin-default-buffer-groups" ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode)) ("P4 Output" (name . "*P4"))) ("justin-default-buffer-groups" ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode))))))
+ '(ibuffer-saved-filters (quote (("P4 Output" ((name . "*P4 Output*"))) ("gnus" ((or (mode . message-mode) (mode . mail-mode) (mode . gnus-group-mode) (mode . gnus-summary-mode) (mode . gnus-article-mode)))) ("programming" ((or (mode . emacs-lisp-mode) (mode . cperl-mode) (mode . c-mode) (mode . java-mode) (mode . idl-mode) (mode . lisp-mode)))))))
+ '(comment-style (quote plain)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
