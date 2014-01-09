@@ -249,9 +249,6 @@ With argument ARG, do this that many times."
 (require 'ansi-color) (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (setq comint-prompt-read-only t)
 
-;; (eval-after-load "sql"
-;;   (load-library "sql-indent"))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

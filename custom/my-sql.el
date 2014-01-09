@@ -113,3 +113,6 @@
 (add-hook 'sql-mode-hook 'font-lock-mode)
 (add-hook 'sql-mode-hook
           (lambda () (setq fill-column 128)))
+
+(eval-after-load "sql"
+  (load-library "sql-indent"))
