@@ -61,12 +61,12 @@
 
 ;; (load "case-confs")
 
-;;   (setq base-db-name (replace-regexp-in-string "p00\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase my-sql-matter)))))
-(shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc135")))
-(shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc16")))
-(replace-regexp-in-string "p0\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc135"))))
-(replace-regexp-in-string "p0\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc16"))))
-(replace-regexp-in-string "0\\([0-9]+[a-z]*\\)" "\\1" "10")
+;; (setq base-db-name (replace-regexp-in-string "p00\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase my-sql-matter)))))
+;; (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc135")))
+;; (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc16")))
+;; (replace-regexp-in-string "p0\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc135"))))
+;; (replace-regexp-in-string "p0\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc16"))))
+;; (replace-regexp-in-string "0\\([0-9]+[a-z]*\\)" "\\1" "10")
 
 (defun my-sql-connect ()
   "Given a matter and an environment (dev, qa, prod, ut), find the correct database to connect to."
