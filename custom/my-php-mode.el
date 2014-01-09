@@ -28,7 +28,3 @@
 ;; allows camel case words to be treated as separate words when using forward-word and backward-word
 ;; (add-hook 'php-mode-hook
 ;;           '(lambda () (c-subword-mode 1)))
-
-;; New completion list
-(setq php-manual-path (concat lisp-lib-dir "/php-manual")
-      php-completion-file (concat custom-dir "/php_function_list.txt"))

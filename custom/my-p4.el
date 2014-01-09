@@ -1,6 +1,6 @@
 (if (or (getenv "P4CONFIG") (getenv "P4CLIENT"))
     (progn
-      (load-file (concat lisp-lib-dir "/p4.el"))
+      (load-file (concat user-emacs-directory "lib/p4.el"))
       ;; shutup p4
       (setq p4-verbose nil)
       ;; Color customization
