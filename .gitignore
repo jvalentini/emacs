@@ -1,5 +1,7 @@
 session*
-auto-save-list/
-saved-session/
-.cask/
-lib/
+auto-save-list
+saved-sessiong
+.cask
+lib
+eshell
+tramp
