@@ -178,6 +178,9 @@
 (load "custom/my-erc")
 (load "custom/my-keys")
 
+(load "lib/p4")
+(load "custom/my-p4")
+
 ;; autoload modes
 (autoload 'plsql-mode   "plsql")
 (autoload 'sql-mode     "sql")
