@@ -9,7 +9,13 @@
         ("https" . "13.147.7.31:8000")))
 
 (push "/usr/local/bin" exec-path)
+(push "/opt/oracle/instantclient_12_1" exec-path)
 (add-to-list 'load-path "~/.emacs.d")
+
+;; Find a way to set these automatically from ~/etc/profile
+(setenv "ORACLE_HOME" "/opt/oracle/instantclient_12_1")
+(setenv "TNS_ADMIN" "~/")
+(setenv "SQLPATH" "~/.sqlplus:~/git/sqlplus-scripts/")
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -165,8 +171,11 @@
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'cider-mode)
 
-(load "custom/my-erc")
 (load "lib/amici")
+(load "lib/plsql")
+(load "custom/my-sql")
+(load "custom/my-erc")
+(load "custom/my-keys")
 
 ;; autoload modes
 (autoload 'plsql-mode   "plsql")
@@ -175,6 +184,8 @@
 (autoload 'yaml-mode    "yaml-mode")
 (autoload 'sqlplus-mode "sqlplus")
 (autoload 'magit-status "magit" nil t)
+
+(add-to-list 'auto-mode-alist '("\\.pk[sb]$" . plsql-mode))
 
 ;; YAML
 (add-hook 'yaml-mode-hook 'c-subword-mode)
@@ -216,6 +227,9 @@ With argument ARG, do this that many times."
   "Given a matter schema, find the name of the production database."
   (interactive)
   (message (shell-command-to-string (concat "~/scripts/shell/get_db.sh " (read-from-minibuffer "Matter code: ") ""))))
+
+(eval-after-load "sql"
+  (load-library "sql-indent"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
