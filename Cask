@@ -14,6 +14,7 @@
 (depends-on "pallet")
 (depends-on "pkg-info")
 (depends-on "popwin")
+(depends-on "php-mode")
 (depends-on "projectile")
 (depends-on "s")
 (depends-on "smartparens")
