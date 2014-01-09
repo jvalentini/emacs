@@ -17,6 +17,7 @@
 (depends-on "php-mode")
 (depends-on "projectile")
 (depends-on "s")
+(depends-on "sql-indent")
 (depends-on "smartparens")
 (depends-on "smex")
 (depends-on "solarized-theme")
