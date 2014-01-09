@@ -65,6 +65,7 @@
 (line-number-mode t)
 (set-fringe-style -1)
 (show-paren-mode t)
+(smartparens-global-mode t)
 (toggle-truncate-lines -1)
 (tooltip-mode -1)
 (transient-mark-mode t)
