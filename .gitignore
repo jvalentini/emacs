@@ -1,7 +1,7 @@
+*.elc
 session*
 auto-save-list
 saved-sessiong
 .cask
-lib
 eshell
 tramp
