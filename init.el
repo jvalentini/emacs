@@ -176,10 +176,13 @@
 (load "lib/plsql")
 (load "custom/my-sql")
 (load "custom/my-erc")
+(load "custom/my-amici")
+(load "custom/my-php-mode")
 (load "custom/my-keys")
 
-(load "lib/p4")
-(load "custom/my-p4")
+;; Deprecated. No longer using p4.
+;; (load "lib/p4")
+;; (load "custom/my-p4")
 
 ;; autoload modes
 (autoload 'plsql-mode   "plsql")
