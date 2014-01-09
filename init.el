@@ -186,7 +186,20 @@
 (autoload 'sqlplus-mode "sqlplus")
 (autoload 'magit-status "magit" nil t)
 
+(add-to-list 'auto-mode-alist '("\\.html$"   . sgml-mode))
+(add-to-list 'auto-mode-alist '("\\.php$"    . php-mode))
+(add-to-list 'auto-mode-alist '("\\.inc$"    . php-mode))
+(add-to-list 'auto-mode-alist '("\\.rb$"     . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.css$"    . css-mode))
+(add-to-list 'auto-mode-alist '("\\.js$"     . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.rhtml$"  . sgml-mode))
+(add-to-list 'auto-mode-alist '("\\.sql$"    . sql-mode))
+(add-to-list 'auto-mode-alist '("\\.sqp$"    . sqlplus-mode))
 (add-to-list 'auto-mode-alist '("\\.pk[sb]$" . plsql-mode))
+(add-to-list 'auto-mode-alist '("\\.yml$"    . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.list$"   . list-mode))
+(add-to-list 'auto-mode-alist '("\\.org$"    . org-mode))
+(add-to-list 'auto-mode-alist '("\\.py$"     . python-mode))
 
 ;; YAML
 (add-hook 'yaml-mode-hook 'c-subword-mode)
@@ -229,8 +242,12 @@ With argument ARG, do this that many times."
   (interactive)
   (message (shell-command-to-string (concat "~/scripts/shell/get_db.sh " (read-from-minibuffer "Matter code: ") ""))))
 
-(eval-after-load "sql"
-  (load-library "sql-indent"))
+;; Ansi colors for eshell
+(require 'ansi-color) (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(setq comint-prompt-read-only t)
+
+;; (eval-after-load "sql"
+;;   (load-library "sql-indent"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
