@@ -12,10 +12,15 @@
 (push "/opt/oracle/instantclient_12_1" exec-path)
 (add-to-list 'load-path "~/.emacs.d")
 
+(setenv "SQLPATH" (concat (getenv "SQLPATH") ":" (expand-file-name "~/git/sqlplus-scripts/")))
+
 ;; Find a way to set these automatically from ~/etc/profile
-(setenv "ORACLE_HOME" "/opt/oracle/instantclient_12_1")
-(setenv "TNS_ADMIN" "~/")
-(setenv "SQLPATH" "~/.sqlplus:~/git/sqlplus-scripts/")
+;; (setenv "ORACLE_HOME" "/opt/oracle/instantclient_12_1")
+;; (setenv "TNS_ADMIN" (expand-file-name "~/"))
+;; (setenv "ORACLE_HOME" "/u01/app/oracle/product/client/11.2.0.4")
+;; (setenv "ORACLE_HOME" "/u01/app/oracle/product/client/11g")
+;; (setenv "TNS_ADMIN" "$ORACLE_HOME/network/admin")
+;; (setenv "TNS_ADMIN" (concat (getenv "ORACLE_HOME") "/network/admin"))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
