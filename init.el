@@ -4,23 +4,27 @@
 (setq package-archives (cons '("tromey" . "http://tromey.com/elpa/") package-archives))
 (package-initialize)
 
+(let ((path (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $PATH")))
+  (setenv "PATH" path)
+  (setq exec-path
+        (append
+         (split-string-and-unquote path ":")
+         exec-path)))
+
+(let ((oracle_home (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $ORACLE_HOME")))
+  (setenv "ORACLE_HOME" oracle_home))
+
+(let ((tns_admin (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $TNS_ADMIN")))
+  (setenv "TNS_ADMIN" tns_admin))
+
+(let ((sqlpath (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $SQLPATH")))
+  (setenv "SQLPATH" sqlpath))
+
 (setq url-proxy-services
       '(("http" . "13.147.7.31:8000")
         ("https" . "13.147.7.31:8000")))
 
-(push "/usr/local/bin" exec-path)
-(push "/opt/oracle/instantclient_12_1" exec-path)
 (add-to-list 'load-path "~/.emacs.d")
-
-(setenv "SQLPATH" (concat (getenv "SQLPATH") ":" (expand-file-name "~/git/sqlplus-scripts/")))
-
-;; Find a way to set these automatically from ~/etc/profile
-;; (setenv "ORACLE_HOME" "/opt/oracle/instantclient_12_1")
-;; (setenv "TNS_ADMIN" (expand-file-name "~/"))
-;; (setenv "ORACLE_HOME" "/u01/app/oracle/product/client/11.2.0.4")
-;; (setenv "ORACLE_HOME" "/u01/app/oracle/product/client/11g")
-;; (setenv "TNS_ADMIN" "$ORACLE_HOME/network/admin")
-;; (setenv "TNS_ADMIN" (concat (getenv "ORACLE_HOME") "/network/admin"))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
