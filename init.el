@@ -183,7 +183,8 @@
 
 (load "lib/amici")
 (load "lib/sql")
-(load "lib/sqlplus")
+;; When starting a daemon loading lib/sqlplus causes an error
+;; (load "lib/sqlplus")
 (load "lib/plsql")
 (load "custom/my-sql")
 (load "custom/my-erc")
