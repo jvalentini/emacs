@@ -2,6 +2,7 @@
 (source "tromey" "http://tromey.com/elpa/")
 
 (depends-on "cask")
+(depends-on "cider")
 (depends-on "dash")
 (depends-on "drag-stuff")
 (depends-on "epl")
@@ -11,6 +12,7 @@
 (depends-on "git-rebase-mode")
 (depends-on "magit")
 (depends-on "multiple-cursors")
+(depends-on "paredit")
 (depends-on "pallet")
 (depends-on "pkg-info")
 (depends-on "popwin")
@@ -23,3 +25,5 @@
 (depends-on "solarized-theme")
 (depends-on "wrap-region")
 (depends-on "yasnippet")
+(depends-on "rainbow-delimiters")
+(depends-on "auto-complete")

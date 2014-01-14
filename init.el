@@ -259,6 +259,28 @@ With argument ARG, do this that many times."
 (require 'ansi-color) (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (setq comint-prompt-read-only t)
 
+;; CIDER config
+(setq cider-repl-pop-to-buffer-on-connect nil)
+(setq cider-popup-stacktraces nil)
+(setq cider-repl-popup-stacktraces t)
+(setq cider-auto-select-error-buffer t)
+(setq cider-repl-display-in-current-window t)
+(setq cider-repl-print-length 100)
+(setq cider-repl-wrap-history t)
+(setq cider-repl-history-size 1000)
+(add-hook 'cider-repl-mode-hook 'subword-mode)
+
+(add-hook 'clojure-mode-hook 'turn-on-eldoc-mode)
+
+;; Paredit
+(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+(add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+(add-hook 'clojure-mode-hook #'enable-paredit-mode)
+
+;; Add rainbow delimiters in all programming modes
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
