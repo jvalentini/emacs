@@ -64,6 +64,8 @@
  x-select-enable-clipboard t
  x-select-enable-primary t)
 
+(require 'smartparens-config)
+
 (blink-cursor-mode t)
 (column-number-mode t)
 (delete-selection-mode t)
