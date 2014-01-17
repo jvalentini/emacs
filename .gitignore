@@ -7,3 +7,4 @@ eshell
 tramp
 .emacs.desktop*
 abbrev_defs
+secret.json
