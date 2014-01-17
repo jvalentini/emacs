@@ -11,15 +11,15 @@
          (split-string-and-unquote path ":")
          exec-path)))
 
-(let ((ld_library_path (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $LD_LIBRARY_PATH")))
-  (if ld_library_path
-      (setenv "LD_LIBRARY_PATH" ld_library_path)))
+(let ((ld-library-path (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $LD_LIBRARY_PATH")))
+  (if ld-library-path
+      (setenv "LD_LIBRARY_PATH" ld-library-path)))
 
-(let ((oracle_home (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $ORACLE_HOME")))
-  (setenv "ORACLE_HOME" oracle_home))
+(let ((oracle-home (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $ORACLE_HOME")))
+  (setenv "ORACLE_HOME" oracle-home))
 
-(let ((tns_admin (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $TNS_ADMIN")))
-  (setenv "TNS_ADMIN" tns_admin))
+(let ((tns-admin (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $TNS_ADMIN")))
+  (setenv "TNS_ADMIN" tns-admin))
 
 (let ((sqlpath (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $SQLPATH")))
   (setenv "SQLPATH" sqlpath))
