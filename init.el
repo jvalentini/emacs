@@ -11,6 +11,10 @@
          (split-string-and-unquote path ":")
          exec-path)))
 
+(let ((ld_library_path (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $LD_LIBRARY_PATH")))
+  (if ld_library_path
+      (setenv "LD_LIBRARY_PATH" ld_library_path)))
+
 (let ((oracle_home (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $ORACLE_HOME")))
   (setenv "ORACLE_HOME" oracle_home))
 
