@@ -97,8 +97,8 @@
 (setq uniquify-ignore-buffers-re "^\\*")
 
 ;; Save point for every file
-(require 'saveplace)
 (setq-default save-place t)
+(require 'saveplace)
 
 ;; Disable warning for narrow to region.
 (put 'narrow-to-region 'disabled nil)
