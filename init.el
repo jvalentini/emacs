@@ -16,13 +16,16 @@
       (setenv "LD_LIBRARY_PATH" ld-library-path)))
 
 (let ((oracle-home (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $ORACLE_HOME")))
-  (setenv "ORACLE_HOME" oracle-home))
+  (if oracle-home
+      (setenv "ORACLE_HOME" oracle-home)))
 
 (let ((tns-admin (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $TNS_ADMIN")))
-  (setenv "TNS_ADMIN" tns-admin))
+  (if tns-admin
+      (setenv "TNS_ADMIN" tns-admin)))
 
 (let ((sqlpath (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $SQLPATH")))
-  (setenv "SQLPATH" sqlpath))
+  (if sqlpath
+      (setenv "SQLPATH" sqlpath)))
 
 (setq url-proxy-services
       '(("http" . "13.147.7.31:8000")
