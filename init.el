@@ -92,6 +92,8 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
+(require 'json)
+
 ;; Smart duplicate buffer renaming
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse)

@@ -68,6 +68,8 @@
 ;; (replace-regexp-in-string "p0\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc16"))))
 ;; (replace-regexp-in-string "0\\([0-9]+[a-z]*\\)" "\\1" "10")
 
+(setq my-secret-data (json-read-file (concat user-emacs-directory "custom/secret.json")))
+
 (defun my-sql-connect ()
   "Given a matter and an environment (dev, qa, prod, ut), find the correct database to connect to."
   (interactive)
@@ -79,7 +81,7 @@
                         ((member env sql-test-env-aliases) (concat "qadb" (replace-regexp-in-string "0\\([0-9]+[a-z]*\\)" "\\1" base-db-name)))
                         ((member env sql-ut-env-aliases) "ut")))
          (sql-user "jvalentini")
-         (sql-password (cdr (assoc 'oracle-dev-pw (json-read-file "secret.json")))))
+         (sql-password (cdr (assoc 'oracle-dev-pw my-secret-data))))
     (setq sql-database db-name)
     (setq sql-oracle-options (list "@set_schema.sql" (upcase my-sql-matter)))
     (let ((sql-buffer-name (concat sql-user "@" (downcase my-sql-matter) "@" sql-database)))
@@ -100,7 +102,7 @@
                         ((member env sql-test-env-aliases) (concat "qadb" (replace-regexp-in-string "0\\([0-9]+[a-z]*\\)" "\\1" base-db-name)))
                         ((member env sql-ut-env-aliases) "ut")))
          (sql-user "jvalentini_amicillccom")
-         (sql-password (cdr (assoc 'oracle-app-pw (json-read-file "secret.json")))))
+         (sql-password (cdr (assoc 'oracle-app-pw my-secret-data))))
     (setq sql-database db-name)
     (setq sql-oracle-options (list "@set_app_schema.sql" (upcase my-sql-matter)))
     (let ((sql-buffer-name (concat sql-user "@" (downcase my-sql-matter) "@" sql-database)))
