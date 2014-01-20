@@ -92,6 +92,10 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
+(if (eq window-system 'x)
+    (menu-bar-mode 1)
+  (menu-bar-mode 0))
+
 (require 'json)
 
 ;; Smart duplicate buffer renaming
