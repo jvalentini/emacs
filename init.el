@@ -99,6 +99,7 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
+;; Show menu bar in X. Hide in terminal.
 (if (eq window-system 'x)
     (menu-bar-mode 1)
   (menu-bar-mode 0))
