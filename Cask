@@ -29,4 +29,5 @@
 (depends-on "solarized-theme")
 (depends-on "sql-indent")
 (depends-on "wrap-region")
+(depends-on "yaml-mode")
 (depends-on "yasnippet")
