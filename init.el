@@ -27,9 +27,16 @@
   (if sqlpath
       (setenv "SQLPATH" sqlpath)))
 
-(setq url-proxy-services
-      '(("http" . "13.147.7.31:8000")
-        ("https" . "13.147.7.31:8000")))
+(let ((no-proxy    (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $no_proxy"))
+      (http-proxy  (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $http_proxy"))
+      (https-proxy (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $https_proxy")))
+  (setenv "no_proxy" no-proxy)
+  (setenv "http_proxy" http-proxy)
+  (setenv "https_proxy" https-proxy)
+  (setq url-proxy-services
+        '(("no_proxy" . no-proxy)
+          ("http" . http-proxy)
+          ("https" . https-proxy))))
 
 (add-to-list 'load-path "~/.emacs.d")
 
