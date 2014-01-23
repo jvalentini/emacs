@@ -328,9 +328,15 @@ With argument ARG, do this that many times."
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(ibuffer-saved-filter-groups (quote (("justin" ("P4 Output" (name . "*P4")) ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode)) ("P4 Output" (name . "*P4"))) ("justin-default-buffer-groups" ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode)) ("P4 Output" (name . "*P4"))) ("justin-default-buffer-groups" ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode))))))
  '(ibuffer-saved-filters (quote (("P4 Output" ((name . "*P4 Output*"))) ("gnus" ((or (mode . message-mode) (mode . mail-mode) (mode . gnus-group-mode) (mode . gnus-summary-mode) (mode . gnus-article-mode)))) ("programming" ((or (mode . emacs-lisp-mode) (mode . cperl-mode) (mode . c-mode) (mode . java-mode) (mode . idl-mode) (mode . lisp-mode)))))))
+ '(ido-cache-ftp-work-directory-time 0.1)
+ '(ido-everywhere t)
  '(magit-default-tracking-name-function (quote magit-default-tracking-name-branch-unescaped))
  '(mode-require-final-newline nil)
- '(sql-product (quote oracle)))
+ '(sql-product (quote oracle))
+ '(tramp-completion-reread-directory-timeout 5)
+ '(tramp-default-host "alyssa.amicillc.com")
+ '(tramp-default-method "ssh")
+ '(tramp-default-user "jvalentini"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
