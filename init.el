@@ -41,6 +41,10 @@
 (flx-ido-mode 1)
 (setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
 
+;; Project management
+(projectile-global-mode)
+(setq projectile-enable-caching t)
+
 (add-to-list 'load-path "~/.emacs.d")
 
 (fset 'yes-or-no-p 'y-or-n-p)
