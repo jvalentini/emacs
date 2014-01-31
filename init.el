@@ -27,16 +27,17 @@
   (if sqlpath
       (setenv "SQLPATH" sqlpath)))
 
-(let ((no-proxy    (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $no_proxy"))
-      (http-proxy  (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $http_proxy"))
-      (https-proxy (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $https_proxy")))
-  (setenv "no_proxy" no-proxy)
-  (setenv "http_proxy" http-proxy)
-  (setenv "https_proxy" https-proxy)
-  (setq url-proxy-services
-        '(("no_proxy" . no-proxy)
-          ("http" . http-proxy)
-          ("https" . https-proxy))))
+(setq no-proxy    (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $no_proxy")
+      http-proxy  (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $http_proxy")
+      https-proxy (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $https_proxy"))
+(setenv "no_proxy" no-proxy)
+(setenv "http_proxy" http-proxy)
+(setenv "https_proxy" https-proxy)
+(setq url-proxy-services
+      '(("no_proxy" . "localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,infrastructure.amicillc.com,testing.amicillc.com")
+        ("http" . "13.147.7.31:8000")
+        ("https" . "13.147.7.31:8000")))
+
 (require 'flx-ido)
 (flx-ido-mode 1)
 (setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
