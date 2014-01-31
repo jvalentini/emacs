@@ -37,6 +37,9 @@
         '(("no_proxy" . no-proxy)
           ("http" . http-proxy)
           ("https" . https-proxy))))
+(require 'flx-ido)
+(flx-ido-mode 1)
+(setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
 
 (add-to-list 'load-path "~/.emacs.d")
 
