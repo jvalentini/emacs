@@ -8,3 +8,5 @@ tramp
 .emacs.desktop*
 abbrev_defs
 secret.json
+projectile.cache
+projectile-bookmarks*
