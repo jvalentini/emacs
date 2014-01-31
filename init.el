@@ -314,11 +314,7 @@ With argument ARG, do this that many times."
 ;; Add rainbow delimiters in all programming modes
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-(if (daemonp)
-    (add-hook 'after-make-frame-functions
-              (lambda (frame)
-                (load-theme 'solarized-dark t)))
-  (load-theme 'solarized-dark t))
+(load-theme 'solarized-dark t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
