@@ -38,8 +38,8 @@
         ("http" . "13.147.7.31:8000")
         ("https" . "13.147.7.31:8000")))
 
-(require 'flx-ido)
-(flx-ido-mode 1)
+;; (require 'flx-ido)
+;; (flx-ido-mode 1)
 (setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
 
 ;; Project management
@@ -163,6 +163,32 @@
 
 ; Always delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(add-hook 'python-mode-hook '(lambda ()
+                               (setq python-indent-offset 4)
+                               (require 'nose)
+                               (local-set-key "\C-ca" 'nosetests-all)
+                               (local-set-key "\C-cm" 'nosetests-module)
+                               (local-set-key "\C-c." 'nosetests-one)
+                               (local-set-key "\C-cpa" 'nosetests-pdb-all)
+                               (local-set-key "\C-cpm" 'nosetests-pdb-module)
+                               (local-set-key "\C-cp." 'nosetests-pdb-one)
+                               (require 'virtualenvwrapper)
+                               (venv-initialize-interactive-shells)
+                               (venv-initialize-eshell)
+                               (setq venv-location "~/virtualenv/")
+                               (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
+                               (setq
+                                python-shell-interpreter "ipython"
+                                python-shell-interpreter-args ""
+                                python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+                                python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+                                python-shell-completion-setup-code
+                                "from IPython.core.completerlib import module_completion"
+                                python-shell-completion-module-string-code
+                                "';'.join(module_completion('''%s'''))\n"
+                                python-shell-completion-string-code
+                                "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")))
 
 (defun ruby-mode-hook ()
   (autoload 'ruby-mode "ruby-mode" nil t)
