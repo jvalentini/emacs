@@ -18,6 +18,9 @@
 (defvar sql-env-history nil
   "History of environments used.")
 
+(defvar sql-env-map '(("d" . "development") ("q" . "qa") ("p" . "production"))
+  "Map of shorthand env key to full name")
+
 (defvar sql-prod-env-aliases '("p" "prod" "proddb" "production")
   "List of aliases that can be used to specify the production environment.")
 
@@ -59,30 +62,30 @@
     )
   )
 
-;; (load "case-confs")
-
-;; (setq base-db-name (replace-regexp-in-string "p00\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase my-sql-matter)))))
-;; (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc135")))
-;; (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc16")))
-;; (replace-regexp-in-string "p0\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc135"))))
-;; (replace-regexp-in-string "p0\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase "jpmc16"))))
-;; (replace-regexp-in-string "0\\([0-9]+[a-z]*\\)" "\\1" "10")
-
 (setq my-secret-data (json-read-file (concat user-emacs-directory "custom/secret.json")))
 
-(defun my-sql-connect ()
+(require 'request)
+
+(defun my-sql-matter-to-tns (matter env)
+  (if (member env sql-ut-env-aliases)
+      (setq sql-database "ut.amicillc.com")
+    (request
+     (concat "http://infrastructure.amicillc.com/matter_schema?matter=" matter "&environment=" (cdr (assoc env sql-env-map)))
+     :parser 'json-read
+     :success (function*
+               (lambda (&key data &allow-other-keys)
+                 (setq sql-database (cdr (assoc 'tns (assoc 'database (elt data 0)))))))
+     :sync t
+     :timeout 2)))
+
+(defun my-sql-connect (user password)
   "Given a matter and an environment (dev, qa, prod, ut), find the correct database to connect to."
   (interactive)
   (setq my-sql-matter (read-from-minibuffer "Matter: " nil nil nil '(sql-matter-history . 1)))
-  (setq base-db-name (replace-regexp-in-string "p0\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase my-sql-matter)))))
   (let* ((env (read-from-minibuffer "Environment (d, q, p, u): " nil nil nil '(sql-env-history . 1)))
-         (db-name (concat (cond ((member env sql-prod-env-aliases) (concat "p0" base-db-name "dev"))
-                                ((member env sql-dev-env-aliases) (concat "devdb" (replace-regexp-in-string "0\\([0-9]+[a-z]*\\)" "\\1" base-db-name)))
-                                ((member env sql-test-env-aliases) (concat "qadb" (replace-regexp-in-string "0\\([0-9]+[a-z]*\\)" "\\1" base-db-name)))
-                                ((member env sql-ut-env-aliases) "ut")) ".amicillc.com"))
-         (sql-user "jvalentini")
-         (sql-password (cdr (assoc 'oracle-dev-pw my-secret-data))))
-    (setq sql-database db-name)
+         (sql-user user)
+         (sql-password password))
+    (my-sql-matter-to-tns my-sql-matter env)
     (setq sql-oracle-options (list "@set_schema.sql" (upcase my-sql-matter)))
     (let ((sql-buffer-name (concat sql-user "@" (downcase my-sql-matter) "@" sql-database)))
       (if (get-buffer sql-buffer-name)
@@ -91,26 +94,19 @@
         (switch-to-buffer "*SQL*")
         (rename-buffer sql-buffer-name t)))))
 
-(defun my-sql-app-connect ()
-  "Given an app_username, a matter, and an environment (dev, qa, prod, ut), find the correct database to connect to."
+(defun my-sql-dev-connect ()
+  "Connect to a matter/schema with my dev account"
   (interactive)
-  (setq my-sql-matter (read-from-minibuffer "Matter: " nil nil nil '(sql-matter-history . 1)))
-  (setq base-db-name (replace-regexp-in-string "p0\\([0-9]+[a-z]*\\)app\n" "\\1" (shell-command-to-string (concat "~/scripts/sh/get_db.sh " (downcase my-sql-matter)))))
-  (let* ((env (read-from-minibuffer "Environment (d, q, p, u): " nil nil nil '(sql-env-history . 1)))
-         (db-name (concat (cond ((member env sql-prod-env-aliases) (concat "p0" base-db-name "dev"))
-                                ((member env sql-dev-env-aliases) (concat "devdb" (replace-regexp-in-string "0\\([0-9]+[a-z]*\\)" "\\1" base-db-name)))
-                                ((member env sql-test-env-aliases) (concat "qadb" (replace-regexp-in-string "0\\([0-9]+[a-z]*\\)" "\\1" base-db-name)))
-                                ((member env sql-ut-env-aliases) "ut")) ".amicillc.com"))
-         (sql-user "jvalentini_amicillccom")
-         (sql-password (cdr (assoc 'oracle-app-pw my-secret-data))))
-    (setq sql-database db-name)
-    (setq sql-oracle-options (list "@set_app_schema.sql" (upcase my-sql-matter)))
-    (let ((sql-buffer-name (concat sql-user "@" (downcase my-sql-matter) "@" sql-database)))
-      (if (get-buffer sql-buffer-name)
-          (switch-to-buffer sql-buffer-name)
-        (sql-oracle)
-        (switch-to-buffer "*SQL*")
-        (rename-buffer sql-buffer-name t)))))
+  (let ((user "jvalentini")
+        (password (cdr (assoc 'oracle-dev-pw my-secret-data))))
+      (my-sql-connect user password)))
+
+(defun my-sql-app-connect ()
+  "Connect to a matter/schema with my app account"
+  (interactive)
+  (let ((user "jvalentini_amicillccom")
+        (password (cdr (assoc 'oracle-app-pw my-secret-data))))
+      (my-sql-connect user password)))
 
 (add-hook 'sql-mode-hook 'font-lock-mode)
 (add-hook 'sql-mode-hook

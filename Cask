@@ -27,6 +27,7 @@
 (depends-on "popwin")
 (depends-on "projectile")
 (depends-on "rainbow-delimiters")
+(depends-on "request")
 (depends-on "s")
 (depends-on "smartparens")
 (depends-on "smex")
