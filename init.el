@@ -275,6 +275,7 @@
 (add-to-list 'auto-mode-alist '("\\.list$"   . list-mode))
 (add-to-list 'auto-mode-alist '("\\.org$"    . org-mode))
 (add-to-list 'auto-mode-alist '("\\.py$"     . python-mode))
+(add-to-list 'auto-mode-alist '("\\.hs$"     . haskell-mode))
 
 ;; YAML
 (add-hook 'yaml-mode-hook 'c-subword-mode)

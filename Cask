@@ -13,6 +13,7 @@
 (depends-on "flx-ido")
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")
+(depends-on "haskell-mode")
 (depends-on "json")
 (depends-on "json-mode")
 (depends-on "magit")
