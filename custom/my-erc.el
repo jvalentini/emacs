@@ -80,3 +80,14 @@
   (format "%s@%s:%s.txt" target server port))
 
 (setq erc-generate-log-file-name-function 'my-erc-generate-log-file-name)
+
+(require 'notifications)
+(defun erc-global-notify (match-type nick message)
+  "Notify when a message is recieved."
+  (notifications-notify
+   :title nick
+   :body message
+   :app-icon "/usr/share/notify-osd/icons/gnome/scalable/status/notification-message-im.svg"
+   :urgency 'low))
+
+(add-hook 'erc-text-matched-hook 'erc-global-notify)
