@@ -350,7 +350,11 @@ With argument ARG, do this that many times."
 ;; Add rainbow delimiters in all programming modes
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-(load-theme 'solarized-dark t)
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (load-theme 'solarized-dark t)))
+  (load-theme 'solarized-dark t))
 
 (set-frame-parameter nil 'fullscreen 'maximized)
 
