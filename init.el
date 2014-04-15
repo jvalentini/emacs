@@ -106,6 +106,7 @@
   (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
+(google-this-mode 1)
 
 ;; Show menu bar in X. Hide in terminal.
 (if (eq window-system 'x)
