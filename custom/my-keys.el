@@ -102,7 +102,7 @@
 ;;      (global-set-key (kbd "C-x a t") 'amici-fixture-teardown))
 
 (global-set-key (kbd "<f2>") 'my-sql-app-connect)
-(global-set-key (kbd "<f3>") 'my-sql-connect)
+(global-set-key (kbd "<f3>") 'my-sql-dev-connect)
 (global-set-key (kbd "<f4>") 'my-sql-reconnect)
 (global-set-key (kbd "<f4>") 'amici-find-function-at-point)
 (global-set-key (kbd "<f5>") 'amici-toggle-class-test)
