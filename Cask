@@ -2,6 +2,7 @@
 (source melpa)
 (source "tromey" "http://tromey.com/elpa/")
 
+(depends-on "auto-complete")
 (depends-on "cask")
 (depends-on "cider")
 (depends-on "clojure-mode")

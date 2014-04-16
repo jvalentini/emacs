@@ -362,6 +362,13 @@ With argument ARG, do this that many times."
 (setq guide-key/guide-key-sequence '("C-x r" "C-x /"))
 (guide-key-mode 1)
 
+(require 'auto-complete-config)
+(ac-config-default)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
+(setq ac-use-menu-map t)
+(define-key ac-menu-map "\C-n" 'ac-next)
+(define-key ac-menu-map "\C-p" 'ac-previous)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
