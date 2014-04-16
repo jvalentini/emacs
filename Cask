@@ -16,6 +16,7 @@
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")
 (depends-on "google-this")
+(depends-on "guide-key")
 (depends-on "haskell-mode")
 (depends-on "json-mode")
 (depends-on "json-reformat")

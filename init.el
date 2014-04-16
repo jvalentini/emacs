@@ -358,6 +358,10 @@ With argument ARG, do this that many times."
 
 (set-frame-parameter nil 'fullscreen 'maximized)
 
+(require 'guide-key)
+(setq guide-key/guide-key-sequence '("C-x r" "C-x /"))
+(guide-key-mode 1)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
