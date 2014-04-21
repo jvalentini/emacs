@@ -372,6 +372,8 @@ With argument ARG, do this that many times."
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -385,8 +387,15 @@ With argument ARG, do this that many times."
  '(ido-everywhere t)
  '(magit-default-tracking-name-function (quote magit-default-tracking-name-branch-unescaped))
  '(mode-require-final-newline nil)
+ '(python-check-command "pylint")
  '(sql-product (quote oracle))
  '(tramp-completion-reread-directory-timeout 5)
  '(tramp-default-host "alyssa.amicillc.com")
  '(tramp-default-method "ssh")
  '(tramp-default-user "jvalentini"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

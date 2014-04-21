@@ -1,5 +1,4 @@
 (source "tromey" "http://tromey.com/elpa/")
-(source "tromey" "http://tromey.com/elpa/")
 (source melpa)
 
 (depends-on "auto-complete")
@@ -14,6 +13,7 @@
 (depends-on "f")
 (depends-on "flx")
 (depends-on "flx-ido")
+(depends-on "flycheck")
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")
 (depends-on "google-this")
