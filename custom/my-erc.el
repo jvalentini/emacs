@@ -1,6 +1,7 @@
-;; (require 'erc)
+(require 'erc)
 (require 'erc-button)
 
+(erc-spelling-mode 1)
 (setq erc-server "irc.amicillc.com"
       erc-port 7450
       erc-nick "jval"
@@ -8,11 +9,14 @@
       erc-prompt-for-password nil
       erc-auto-query 'bury
       erc-autojoin-channels-alist '(("irc.amicillc.com" "#dev"))
-      erc-fill-column 100)
+      erc-fill-column 100
+      erc-log-insert-log-on-open t
+      erc-log-channels-directory "~/.erc/logs/"
+      erc-track-exclude-server-buffer t
+      erc-track-shorten-start 5
+      erc-track-shorten-cutoff 10
+      erc-hide-list '("JOIN" "PART" "MODE" "QUIT"))
 
-;; logging
-(setq erc-log-insert-log-on-open t
-      erc-log-channels-directory "~/.erc/logs/")
 (add-hook 'erc-insert-post-hook 'erc-save-buffer-in-logs)
 (add-hook 'erc-send-post-hook 'erc-save-buffer-in-logs)
 
@@ -27,31 +31,6 @@
           (t 'my-erc-header-line-disconnected))))
 (setq erc-header-line-face-method 'my-erc-update-header-line-disconnected)
 
-;; modeline stuff
-(setq erc-track-exclude-server-buffer t
-      erc-track-shorten-start 5
-      erc-track-shorten-cutoff 10)
-
-;; flyspell in erc buffers
-(erc-spelling-mode 1)
-
-;; libnotify notifications
-;; (defun my-notify-on-msg (msg)
-;;   "generate a libnotify message when I'm mentioned in a channel
-;; or receive any message in a query buffer"
-;;   (if (and (or (erc-query-buffer-p (current-buffer))
-;;                (string-match (concat "\\b" erc-nick "\\b") msg))
-;;            (string-match "<\\(.+\\)> +\\(.+\\)" msg))
-;;       (progn
-;;         (let* ((nick (match-string 1 msg))
-;;                (content (match-string 2 msg))
-;;                (summary (if (string= nick (buffer-name)) nick (format "%s <%s>" (buffer-name) nick))))
-;;           (my-notify summary content)))))
-
-;;(add-hook 'erc-insert-pre-hook 'my-notify-on-msg)
-
-;; timestamping stuff
-;;
 ;; timestamps go on the left, if this is the first message of the day
 ;; in this buffer, insert a line with the date
 (make-variable-buffer-local
@@ -75,12 +54,6 @@
                                                                        (browse-url
                                                                         (concat "http://jira.amicillc.com:8080/browse/XLS-" issue-code))) 2))
 
-(defun my-erc-generate-log-file-name (buffer target nick server port)
-  "custom function to generate erc log file names"
-  (format "%s@%s:%s.txt" target server port))
-
-(setq erc-generate-log-file-name-function 'my-erc-generate-log-file-name)
-
 (require 'notifications)
 (defun erc-global-notify (match-type nick message)
   "Notify when a message is recieved."
@@ -91,5 +64,3 @@
    :urgency 'low))
 
 (add-hook 'erc-text-matched-hook 'erc-global-notify)
-
-(setq erc-hide-list '("JOIN" "PART" "MODE"))
