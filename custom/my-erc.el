@@ -91,3 +91,5 @@
    :urgency 'low))
 
 (add-hook 'erc-text-matched-hook 'erc-global-notify)
+
+(setq erc-hide-list '("JOIN" "PART" "MODE"))
