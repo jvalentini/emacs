@@ -10,7 +10,7 @@
       erc-auto-query 'bury
       erc-autojoin-channels-alist '(("irc.amicillc.com" "#dev"))
       erc-fill-column 100
-      erc-log-insert-log-on-open t
+      erc-log-insert-log-on-open nil
       erc-log-channels-directory "~/.erc/logs/"
       erc-track-exclude-server-buffer t
       erc-track-shorten-start 5
@@ -61,6 +61,7 @@
    :title nick
    :body message
    :app-icon "/usr/share/notify-osd/icons/gnome/scalable/status/notification-message-im.svg"
-   :urgency 'low))
+   :urgency 'low
+   :timeout -1))
 
 (add-hook 'erc-text-matched-hook 'erc-global-notify)
