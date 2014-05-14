@@ -35,6 +35,7 @@
 (depends-on "popwin")
 (depends-on "powerline")
 (depends-on "projectile")
+(depends-on "pylint")
 (depends-on "rainbow-delimiters")
 (depends-on "request")
 (depends-on "rspec-mode")

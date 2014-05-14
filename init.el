@@ -181,7 +181,6 @@
                                (venv-initialize-interactive-shells)
                                (venv-initialize-eshell)
                                (setq venv-location "~/virtualenv/")
-                               (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
                                (setq
                                 python-shell-interpreter "ipython"
                                 python-shell-interpreter-args ""
