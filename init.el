@@ -165,6 +165,9 @@
 ; Always delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(require 'powerline)
+(powerline-center-theme)
+
 (add-hook 'python-mode-hook '(lambda ()
                                (setq python-indent-offset 4)
                                (require 'nose)
