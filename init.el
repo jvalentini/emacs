@@ -45,6 +45,7 @@
 ;; Project management
 (projectile-global-mode)
 (setq projectile-enable-caching t)
+(setq projectile-keymap-prefix (kbd "C-x p"))
 
 (add-to-list 'load-path "~/.emacs.d")
 
@@ -167,6 +168,34 @@
 
 (require 'powerline)
 (powerline-center-theme)
+
+(require 'org)
+(require 'org-pomodoro)
+(require 'org-bullets)
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+(setq org-clock-idle-time 10)
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+(define-key global-map "\C-cc" 'org-capture)
+(define-key global-map "\C-co" 'org-agenda)
+(define-key global-map (kbd "<f12>") 'org-agenda)
+(define-key global-map (kbd "<f11>") 'org-clock-goto)
+(define-key global-map (kbd "C-<f11>") 'org-clock-in)
+(setq org-log-done 'time)
+(setq org-capture-templates
+      '(("p" "Pipes tasks" entry (file+headline "~/org/work.org" "Pipes")
+         "* TODO %?\n  %i")
+        ("t" "Todo" entry (file+headline "~/org/notes.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("m" "Meeting" entry (file "~/org/work.org")
+         "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+             "* %?\nEntered on %U\n  %i\n  %a")))
+(setq org-agenda-files (list "~/org/work.org"
+                             "~/org/notes.org"))
+
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (add-hook 'python-mode-hook '(lambda ()
                                (setq python-indent-offset 4)
@@ -368,6 +397,7 @@ With argument ARG, do this that many times."
 
 (require 'auto-complete-config)
 (ac-config-default)
+(setq ac-show-menu-immediately-on-auto-complete t)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
 (setq ac-use-menu-map t)
 (define-key ac-menu-map "\C-n" 'ac-next)
@@ -380,13 +410,14 @@ With argument ARG, do this that many times."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
  '(comment-style (quote plain))
- '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(custom-safe-themes (quote ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(erc-auto-query (quote frame))
  '(erc-email-userid "justin.valentini@gmail.com")
  '(erc-generate-log-file-name-function (quote erc-generate-log-file-name-network))
  '(erc-keywords (quote ("lunch" "coffee")))
- '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands notifications readonly replace ring scrolltobottom smiley sound stamp spelling track)))
+ '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands notifications readonly replace ring scrolltobottom smiley stamp spelling track)))
  '(erc-user-full-name "Justin Valentini")
  '(ibuffer-saved-filter-groups (quote (("justin" ("P4 Output" (name . "*P4")) ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode)) ("P4 Output" (name . "*P4"))) ("justin-default-buffer-groups" ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode)) ("P4 Output" (name . "*P4"))) ("justin-default-buffer-groups" ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode))))))
  '(ibuffer-saved-filters (quote (("P4 Output" ((name . "*P4 Output*"))) ("gnus" ((or (mode . message-mode) (mode . mail-mode) (mode . gnus-group-mode) (mode . gnus-summary-mode) (mode . gnus-article-mode)))) ("programming" ((or (mode . emacs-lisp-mode) (mode . cperl-mode) (mode . c-mode) (mode . java-mode) (mode . idl-mode) (mode . lisp-mode)))))))
@@ -395,7 +426,13 @@ With argument ARG, do this that many times."
  '(magit-default-tracking-name-function (quote magit-default-tracking-name-branch-unescaped))
  '(magit-diff-use-overlays nil)
  '(mode-require-final-newline nil)
+ '(org-agenda-files (quote ("~/org/notes.org")))
+ '(org-pretty-entities nil)
  '(python-check-command "pylint")
+ '(solarized-height-plus-1 1)
+ '(solarized-height-plus-2 1)
+ '(solarized-height-plus-3 1)
+ '(solarized-height-plus-4 1)
  '(sql-product (quote oracle))
  '(tramp-completion-reread-directory-timeout 5)
  '(tramp-default-host "alyssa.amicillc.com")
@@ -406,4 +443,7 @@ With argument ARG, do this that many times."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#cb4b16" :height 1.0))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#859900" :height 1.0))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#268bd2" :height 1.0))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#b58900" :height 1.0)))))
