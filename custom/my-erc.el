@@ -8,7 +8,7 @@
       erc-full-name "Justin Valentini"
       erc-prompt-for-password nil
       erc-auto-query 'bury
-      erc-autojoin-channels-alist '(("irc.amicillc.com" "#dev"))
+      erc-autojoin-channels-alist '(("irc.amicillc.com" "#dev") ("irc.amicillc.com" "#pipes"))
       erc-fill-column 100
       erc-log-insert-log-on-open nil
       erc-log-channels-directory "~/.erc/logs/"
