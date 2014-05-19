@@ -316,12 +316,6 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(defun backward-delete-word (arg)
-  "Delete characters backward until encountering the beginning of a word.
-With argument ARG, do this that many times."
-  (interactive "p")
-  (delete-region (point) (progn (backward-word arg) (point))))
-
 (defun delete-enclosed-text ()
   "Delete texts between any pair of delimiters."
   (interactive)
