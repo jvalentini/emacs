@@ -157,9 +157,6 @@
 ; Always delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(require 'powerline)
-(powerline-center-theme)
-
 (require 'org)
 (require 'org-pomodoro)
 (require 'org-bullets)
