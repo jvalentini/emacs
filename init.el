@@ -27,16 +27,7 @@
   (if sqlpath
       (setenv "SQLPATH" sqlpath)))
 
-(setq no-proxy    (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $no_proxy")
-      http-proxy  (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $http_proxy")
-      https-proxy (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $https_proxy"))
-(setenv "no_proxy" no-proxy)
-(setenv "http_proxy" http-proxy)
-(setenv "https_proxy" https-proxy)
-(setq url-proxy-services
-      '(("no_proxy" . "localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,infrastructure.amicillc.com,testing.amicillc.com")
-        ("http" . "13.147.7.31:8000")
-        ("https" . "13.147.7.31:8000")))
+;; All proxy config set in /etc/environment
 
 ;; (require 'flx-ido)
 ;; (flx-ido-mode 1)
