@@ -18,6 +18,7 @@
 (depends-on "git-rebase-mode")
 (depends-on "google-this")
 (depends-on "guide-key")
+(depends-on "howdoi")
 (depends-on "haskell-mode")
 (depends-on "highlight")
 (depends-on "inf-ruby")

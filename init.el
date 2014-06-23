@@ -99,6 +99,7 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 (google-this-mode 1)
+(howdoi-minor-mode t)
 
 ;; Show menu bar in X. Hide in terminal.
 (if (eq window-system 'x)
@@ -377,7 +378,7 @@ With argument ARG, do this that many times."
 (set-frame-parameter nil 'fullscreen 'maximized)
 
 (require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x"))
+(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o"))
 (guide-key-mode 1)
 
 (require 'auto-complete-config)
