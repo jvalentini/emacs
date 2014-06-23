@@ -11,6 +11,8 @@
          (split-string-and-unquote path ":")
          exec-path)))
 
+(add-to-list 'load-path "~/.emacs.d")
+
 (let ((ld-library-path (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $LD_LIBRARY_PATH")))
   (if ld-library-path
       (setenv "LD_LIBRARY_PATH" ld-library-path)))
@@ -37,8 +39,6 @@
 (projectile-global-mode)
 (setq projectile-enable-caching t)
 (setq projectile-keymap-prefix (kbd "C-x p"))
-
-(add-to-list 'load-path "~/.emacs.d")
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
