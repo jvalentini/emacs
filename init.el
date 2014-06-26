@@ -29,6 +29,18 @@
   (if sqlpath
       (setenv "SQLPATH" sqlpath)))
 
+(defmacro after (mode &rest body)
+  "`eval-after-load' MODE evaluate BODY.
+
+This allows us to define configuration for features that aren't
+always installed and only eval that configuration after the feature is loaded.
+
+ELPA packages usually provide an -autoloads feature which we can
+use to determine if the package is installed/loaded."
+  (declare (indent defun))
+  `(eval-after-load ,mode
+     '(progn ,@body)))
+
 ;; All proxy config set in /etc/environment
 
 ;; (require 'flx-ido)
@@ -387,12 +399,123 @@ With argument ARG, do this that many times."
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+(after 'tramp-sh
+  ;; fix for http://debbugs.gnu.org/cgi/bugreport.cgi?bug=17238 until it's released in 24.4
+  (defun tramp-sh-handle-file-truename (filename &optional counter prev-dirs)
+    "Like `file-truename' for Tramp files."
+    (with-parsed-tramp-file-name (expand-file-name filename) nil
+      (tramp-make-tramp-file-name method user host
+        (with-tramp-file-property v localname "file-truename"
+   (let ((result nil))	; result steps in reverse order
+   (tramp-message v 4 "Finding true name for `%s'" filename)
+   (cond
+   ;; Use GNU readlink --canonicalize-missing where available.
+   ((tramp-get-remote-readlink v)
+   (setq result
+   (tramp-send-command-and-read
+   v
+   (format "echo \"\\\"`%s --canonicalize-missing %s`\\\"\""
+   (tramp-get-remote-readlink v)
+   (tramp-shell-quote-argument (tramp-shell-quote-argument localname))))))
+
+   ;; Use Perl implementation.
+   ((and (tramp-get-remote-perl v)
+   (tramp-get-connection-property v "perl-file-spec" nil)
+   (tramp-get-connection-property v "perl-cwd-realpath" nil))
+   (tramp-maybe-send-script
+   v tramp-perl-file-truename "tramp_perl_file_truename")
+   (setq result
+   (tramp-send-command-and-read
+   v
+   (format "tramp_perl_file_truename %s"
+   (tramp-shell-quote-argument localname)))))
+
+   ;; Do it yourself. We bind `directory-sep-char' here for
+   ;; XEmacs on Windows, which would otherwise use backslash.
+   (t (let* ((directory-sep-char ?/)
+   (steps (tramp-compat-split-string localname "/"))
+   (localnamedir (tramp-run-real-handler
+   'file-name-as-directory (list localname)))
+   (is-dir (string= localname localnamedir))
+   (thisstep nil)
+   (numchase 0)
+   ;; Don't make the following value larger than
+   ;; necessary. People expect an error message in
+   ;; a timely fashion when something is wrong;
+   ;; otherwise they might think that Emacs is hung.
+   ;; Of course, correctness has to come first.
+   (numchase-limit 20)
+   symlink-target)
+   (while (and steps (< numchase numchase-limit))
+   (setq thisstep (pop steps))
+   (tramp-message
+   v 5 "Check %s"
+   (mapconcat 'identity
+   (append '("") (reverse result) (list thisstep))
+   "/"))
+   (setq symlink-target
+   (nth 0 (file-attributes
+   (tramp-make-tramp-file-name
+   method user host
+   (mapconcat 'identity
+   (append '("")
+   (reverse result)
+   (list thisstep))
+   "/")))))
+   (cond ((string= "." thisstep)
+   (tramp-message v 5 "Ignoring step `.'"))
+   ((string= ".." thisstep)
+   (tramp-message v 5 "Processing step `..'")
+   (pop result))
+   ((stringp symlink-target)
+   ;; It's a symlink, follow it.
+   (tramp-message
+   v 5 "Follow symlink to %s" symlink-target)
+   (setq numchase (1+ numchase))
+   (when (file-name-absolute-p symlink-target)
+   (setq result nil))
+   ;; If the symlink was absolute, we'll get a
+   ;; string like "/user@host:/some/target";
+   ;; extract the "/some/target" part from it.
+   (when (tramp-tramp-file-p symlink-target)
+   (unless (tramp-equal-remote filename symlink-target)
+   (tramp-error
+   v 'file-error
+   "Symlink target `%s' on wrong host"
+   symlink-target))
+   (setq symlink-target localname))
+   (setq steps
+   (append (tramp-compat-split-string
+   symlink-target "/")
+   steps)))
+   (t
+   ;; It's a file.
+   (setq result (cons thisstep result)))))
+   (when (>= numchase numchase-limit)
+   (tramp-error
+   v 'file-error
+   "Maximum number (%d) of symlinks exceeded" numchase-limit))
+   (setq result (reverse result))
+   ;; Combine list to form string.
+   (setq result
+   (if result
+   (mapconcat 'identity (cons "" result) "/")
+   "/"))
+   (when (and is-dir
+   (or (string= "" result)
+   (not (string= (substring result -1) "/"))))
+   (setq result (concat result "/"))))))
+
+   (tramp-message v 4 "True name of `%s' is `%s'" localname result)
+   result))))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
+ '(browse-url-browser-function (quote browse-url-firefox))
  '(comment-style (quote plain))
  '(custom-safe-themes (quote ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(erc-auto-query (quote frame))
