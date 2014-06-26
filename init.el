@@ -99,7 +99,11 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 (google-this-mode 1)
-(howdoi-minor-mode t)
+(require 'mustache-mode)
+
+(define-globalized-minor-mode global-howdoi-minor-mode
+  howdoi-minor-mode howdoi-minor-mode)
+(global-howdoi-minor-mode 1)
 
 ;; Show menu bar in X. Hide in terminal.
 (if (eq window-system 'x)
