@@ -175,7 +175,6 @@ use to determine if the package is installed/loaded."
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (require 'org)
-(require 'org-pomodoro)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (setq org-clock-persist 'history)
 (org-clock-persistence-insinuate)

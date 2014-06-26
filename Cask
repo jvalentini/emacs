@@ -26,6 +26,7 @@
 (depends-on "json-reformat")
 (depends-on "magit")
 (depends-on "markdown-mode")
+(depends-on "mustache-mode")
 (depends-on "multiple-cursors")
 (depends-on "nose")
 (depends-on "org-bullets")
