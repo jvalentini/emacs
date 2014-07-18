@@ -46,6 +46,7 @@ use to determine if the package is installed/loaded."
 ;; (require 'flx-ido)
 ;; (flx-ido-mode 1)
 (setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
+(setq ido-auto-merge-work-directories-length -1)
 
 ;; Project management
 (projectile-global-mode)
