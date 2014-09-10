@@ -525,6 +525,11 @@ With argument ARG, do this that many times."
                     (funcall ,ido-cannot-complete-command)))))
           ad-do-it))
 
+
+(require 'compile)
+(defun my-php-hook-function ()
+ (set (make-local-variable 'compile-command) (format "phpcs --report=emacs --standard=PEAR %s" (buffer-file-name))))
+(add-hook 'php-mode-hook 'my-php-hook-function)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
