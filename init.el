@@ -87,7 +87,8 @@ use to determine if the package is installed/loaded."
  plsql-indent 4
  require-final-newline nil
  save-interprogram-paste-before-kill t
- truncate-partial-width-windows nil
+ truncate-lines t
+ default-truncate-lines t
  x-select-enable-clipboard t
  x-select-enable-primary t)
 
@@ -104,7 +105,6 @@ use to determine if the package is installed/loaded."
 (set-fringe-style -1)
 (show-paren-mode t)
 (smartparens-global-mode t)
-(toggle-truncate-lines -1)
 (tooltip-mode -1)
 (transient-mark-mode t)
 (when (fboundp 'tool-bar-mode)
@@ -530,6 +530,19 @@ With argument ARG, do this that many times."
 (defun my-php-hook-function ()
  (set (make-local-variable 'compile-command) (format "phpcs --report=emacs --standard=PEAR %s" (buffer-file-name))))
 (add-hook 'php-mode-hook 'my-php-hook-function)
+
+
+(defun upcase-rectangle (b e)
+  "change chars in rectangle to uppercase"
+  (interactive "r")
+  (apply-on-rectangle 'upcase-rectangle-line b e))
+
+(defun upcase-rectangle-line (startcol endcol)
+  (when (= (move-to-column startcol) startcol)
+    (upcase-region (point)
+                   (progn (move-to-column endcol 'coerce)
+                          (point)))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

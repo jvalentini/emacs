@@ -49,6 +49,8 @@
 (global-set-key (kbd "C-x g") 'rgrep)
 (global-set-key (kbd "C-x d") 'my-get-db)
 
+(global-set-key (kbd "C-x r u") 'upcase-rectangle)
+
 ;; Perforce
 (global-set-key (kbd "C-x p o") 'my-p4-opened-default)
 (global-set-key (kbd "C-x p O") 'my-p4-opened-default)
