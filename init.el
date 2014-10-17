@@ -114,6 +114,11 @@ use to determine if the package is installed/loaded."
 (google-this-mode 1)
 (require 'mustache-mode)
 
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+
 (define-globalized-minor-mode global-howdoi-minor-mode
   howdoi-minor-mode howdoi-minor-mode)
 (global-howdoi-minor-mode 1)
