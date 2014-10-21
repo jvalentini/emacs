@@ -91,7 +91,8 @@ use to determine if the package is installed/loaded."
  truncate-lines t
  default-truncate-lines t
  x-select-enable-clipboard t
- x-select-enable-primary t)
+ x-select-enable-primary t
+ hi-lock-auto-select-face t)
 
 (require 'smartparens-config)
 
