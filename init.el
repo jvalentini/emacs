@@ -11,7 +11,8 @@
          (split-string-and-unquote path ":")
          exec-path)))
 
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/lib")
+(add-to-list 'load-path "~/.emacs.d/custom")
 
 (let ((ld-library-path (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $LD_LIBRARY_PATH")))
   (if ld-library-path
@@ -271,16 +272,16 @@ use to determine if the package is installed/loaded."
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'cider-mode)
 
-(load "lib/amici")
-(load "lib/sql")
+(load "amici")
+(load "sql")
 ;; When starting a daemon loading lib/sqlplus causes an error
 ;; (load "lib/sqlplus")
-(load "lib/plsql")
-(load "custom/my-sql")
-(load "custom/my-erc")
-(load "custom/my-amici")
-(load "custom/my-php-mode")
-(load "custom/my-keys")
+(load "plsql")
+(load "my-sql")
+(load "my-erc")
+(load "my-amici")
+(load "my-php-mode")
+(load "my-keys")
 
 ;; Deprecated. No longer using p4.
 ;; (load "lib/p4")
