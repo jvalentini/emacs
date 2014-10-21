@@ -3,7 +3,6 @@
 
 (depends-on "auto-complete")
 (depends-on "cask")
-(depends-on "cider")
 (depends-on "clojure-mode")
 (depends-on "coffee-mode")
 (depends-on "dash")
