@@ -152,6 +152,9 @@ use to determine if the package is installed/loaded."
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region   'disabled nil)
 
+;; Disable pager
+(setenv "PAGER" (executable-find "cat"))
+
 ;; Customize ibuffer formatting.
 (setq ibuffer-formats '((mark modified read-only " "
                               (name 35 35 :left :elide)
