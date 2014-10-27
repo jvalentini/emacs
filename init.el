@@ -540,7 +540,7 @@ With argument ARG, do this that many times."
 (defun my-php-hook-function ()
  (set (make-local-variable 'compile-command) (format "phpcs --report=emacs --standard=PEAR %s" (buffer-file-name))))
 (add-hook 'php-mode-hook 'my-php-hook-function)
-
+(add-hook 'php-mode-hook (lambda () (subword-mode 1)))
 
 (defun upcase-rectangle (b e)
   "change chars in rectangle to uppercase"
@@ -576,7 +576,10 @@ With argument ARG, do this that many times."
  '(magit-default-tracking-name-function (quote magit-default-tracking-name-branch-unescaped))
  '(magit-diff-use-overlays nil)
  '(mode-require-final-newline nil)
- '(projectile-globally-ignored-directories (quote (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" ".sandbox" "amici_php/vendor")))
+ '(php-mode-coding-style (quote psr2))
+ '(projectile-globally-ignored-directories
+   (quote
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" ".sandbox" "amici_php/vendor")))
  '(python-check-command "pylint")
  '(solarized-height-plus-1 1)
  '(solarized-height-plus-2 1)
