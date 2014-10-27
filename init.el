@@ -366,15 +366,15 @@ With argument ARG, do this that many times."
 (setq comint-prompt-read-only t)
 
 ;; CIDER config
-(setq cider-repl-pop-to-buffer-on-connect nil)
-(setq cider-popup-stacktraces nil)
-(setq cider-repl-popup-stacktraces t)
-(setq cider-auto-select-error-buffer t)
-(setq cider-repl-display-in-current-window t)
-(setq cider-repl-print-length 100)
-(setq cider-repl-wrap-history t)
-(setq cider-repl-history-size 1000)
-(add-hook 'cider-repl-mode-hook 'subword-mode)
+;; (setq cider-repl-pop-to-buffer-on-connect nil)
+;; (setq cider-popup-stacktraces nil)
+;; (setq cider-repl-popup-stacktraces t)
+;; (setq cider-auto-select-error-buffer t)
+;; (setq cider-repl-display-in-current-window t)
+;; (setq cider-repl-print-length 100)
+;; (setq cider-repl-wrap-history t)
+;; (setq cider-repl-history-size 1000)
+;; (add-hook 'cider-repl-mode-hook 'subword-mode)
 
 (add-hook 'clojure-mode-hook 'turn-on-eldoc-mode)
 
