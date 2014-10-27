@@ -602,9 +602,7 @@ With argument ARG, do this that many times."
      ("php" . "*.php *.inc"))))
  '(ibuffer-saved-filter-groups
    (quote
-    (("justin"
-      ("P4 Output"
-       (name . "*P4"))
+    (("justin-default-buffer-groups"
       ("Models"
        (filename . "models"))
       ("Test PHP"
@@ -644,84 +642,7 @@ With argument ARG, do this that many times."
        (mode . dired-mode))
       ("P4 Output"
        (name . "*P4")))
-     ("justin-default-buffer-groups"
-      ("Models"
-       (filename . "models"))
-      ("Test PHP"
-       (name . "test")
-       (mode . php-mode))
-      ("Fixtures"
-       (mode . yaml-mode))
-      ("Controllers"
-       (filename . "controllers"))
-      ("Helpers"
-       (filename . "helpers"))
-      ("Views"
-       (mode . sgml-mode))
-      ("Framework"
-       (filename . "framework"))
-      ("PHP"
-       (mode . php-mode))
-      ("SQL"
-       (or
-        (mode . plsql-mode)
-        (mode . sql-mode)))
-      ("Oracle Sessions"
-       (mode . sql-interactive-mode))
-      ("Org Mode"
-       (mode . org-mode))
-      ("Python"
-       (mode . python-mode))
-      ("Javascript"
-       (mode . js2-mode))
-      ("Emacs Config"
-       (mode . emacs-lisp-mode))
-      ("SRC"
-       (filename . "src/php"))
-      ("Logs"
-       (name . "\\.log"))
-      ("Dired"
-       (mode . dired-mode))
-      ("P4 Output"
-       (name . "*P4")))
-     ("justin-default-buffer-groups"
-      ("Models"
-       (filename . "models"))
-      ("Test PHP"
-       (name . "test")
-       (mode . php-mode))
-      ("Fixtures"
-       (mode . yaml-mode))
-      ("Controllers"
-       (filename . "controllers"))
-      ("Helpers"
-       (filename . "helpers"))
-      ("Views"
-       (mode . sgml-mode))
-      ("Framework"
-       (filename . "framework"))
-      ("PHP"
-       (mode . php-mode))
-      ("SQL"
-       (or
-        (mode . plsql-mode)
-        (mode . sql-mode)))
-      ("Oracle Sessions"
-       (mode . sql-interactive-mode))
-      ("Org Mode"
-       (mode . org-mode))
-      ("Python"
-       (mode . python-mode))
-      ("Javascript"
-       (mode . js2-mode))
-      ("Emacs Config"
-       (mode . emacs-lisp-mode))
-      ("SRC"
-       (filename . "src/php"))
-      ("Logs"
-       (name . "\\.log"))
-      ("Dired"
-       (mode . dired-mode))))))
+     )))
  '(ibuffer-saved-filters
    (quote
     (("P4 Output"
