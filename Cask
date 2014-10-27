@@ -50,6 +50,7 @@
 (depends-on "solarized-theme")
 (depends-on "sql-indent")
 (depends-on "virtualenvwrapper")
+(depends-on "web-mode")
 (depends-on "wrap-region")
 (depends-on "yaml-mode")
 (depends-on "yasnippet")
