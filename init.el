@@ -289,7 +289,6 @@ use to determine if the package is installed/loaded."
 (load "my-sql")
 (load "my-erc")
 (load "my-amici")
-(load "my-php-mode")
 (load "my-keys")
 
 ;; Deprecated. No longer using p4.
