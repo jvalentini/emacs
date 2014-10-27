@@ -94,6 +94,9 @@ use to determine if the package is installed/loaded."
  x-select-enable-primary t
  hi-lock-auto-select-face t)
 
+(setq initial-buffer-choice 'remember-notes
+      remember-notes-buffer-name "*scratch*")
+
 (require 'smartparens-config)
 
 (blink-cursor-mode t)
