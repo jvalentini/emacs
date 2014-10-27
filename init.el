@@ -118,6 +118,8 @@ use to determine if the package is installed/loaded."
   (scroll-bar-mode -1))
 (google-this-mode 1)
 (require 'mustache-mode)
+;; (global-auto-revert-mode t)
+;; (setq auto-revert-remote-files t)
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
