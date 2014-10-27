@@ -545,6 +545,8 @@ With argument ARG, do this that many times."
                     (funcall ,ido-cannot-complete-command)))))
           ad-do-it))
 
+(eval-after-load 'tramp
+  '(vagrant-tramp-enable))
 
 (require 'compile)
 (defun my-php-hook-function ()

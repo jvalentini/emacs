@@ -49,6 +49,8 @@
 (depends-on "smex")
 (depends-on "solarized-theme")
 (depends-on "sql-indent")
+(depends-on "vagrant")
+(depends-on "vagrant-tramp")
 (depends-on "virtualenvwrapper")
 (depends-on "web-mode")
 (depends-on "wrap-region")
