@@ -563,19 +563,178 @@ With argument ARG, do this that many times."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
  '(browse-url-browser-function (quote browse-url-firefox))
  '(comment-style (quote plain))
- '(custom-safe-themes (quote ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(custom-safe-themes
+   (quote
+    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(erc-auto-query (quote frame))
  '(erc-email-userid "justin.valentini@gmail.com")
  '(erc-generate-log-file-name-function (quote erc-generate-log-file-name-network))
  '(erc-keywords (quote ("lunch" "coffee")))
- '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands notifications readonly replace ring scrolltobottom smiley stamp spelling track)))
+ '(erc-modules
+   (quote
+    (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands notifications readonly replace ring scrolltobottom smiley stamp spelling track)))
  '(erc-user-full-name "Justin Valentini")
- '(grep-files-aliases (quote (("all" . "* .*") ("el" . "*.el") ("ch" . "*.[ch]") ("c" . "*.c") ("cc" . "*.cc *.cxx *.cpp *.C *.CC *.c++") ("cchh" . "*.cc *.[ch]xx *.[ch]pp *.[CHh] *.CC *.HH *.[ch]++") ("hh" . "*.hxx *.hpp *.[Hh] *.HH *.h++") ("h" . "*.h") ("l" . "[Cc]hange[Ll]og*") ("m" . "[Mm]akefile*") ("tex" . "*.tex") ("texi" . "*.texi") ("asm" . "*.[sS]") ("php" . "*.php *.inc"))))
- '(ibuffer-saved-filter-groups (quote (("justin" ("P4 Output" (name . "*P4")) ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode)) ("P4 Output" (name . "*P4"))) ("justin-default-buffer-groups" ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode)) ("P4 Output" (name . "*P4"))) ("justin-default-buffer-groups" ("Models" (filename . "models")) ("Test PHP" (name . "test") (mode . php-mode)) ("Fixtures" (mode . yaml-mode)) ("Controllers" (filename . "controllers")) ("Helpers" (filename . "helpers")) ("Views" (mode . sgml-mode)) ("Framework" (filename . "framework")) ("PHP" (mode . php-mode)) ("SQL" (or (mode . plsql-mode) (mode . sql-mode))) ("Oracle Sessions" (mode . sql-interactive-mode)) ("Org Mode" (mode . org-mode)) ("Python" (mode . python-mode)) ("Javascript" (mode . js2-mode)) ("Emacs Config" (mode . emacs-lisp-mode)) ("SRC" (filename . "src/php")) ("Logs" (name . "\\.log")) ("Dired" (mode . dired-mode))))))
- '(ibuffer-saved-filters (quote (("P4 Output" ((name . "*P4 Output*"))) ("gnus" ((or (mode . message-mode) (mode . mail-mode) (mode . gnus-group-mode) (mode . gnus-summary-mode) (mode . gnus-article-mode)))) ("programming" ((or (mode . emacs-lisp-mode) (mode . cperl-mode) (mode . c-mode) (mode . java-mode) (mode . idl-mode) (mode . lisp-mode)))))))
+ '(grep-files-aliases
+   (quote
+    (("all" . "* .*")
+     ("el" . "*.el")
+     ("ch" . "*.[ch]")
+     ("c" . "*.c")
+     ("cc" . "*.cc *.cxx *.cpp *.C *.CC *.c++")
+     ("cchh" . "*.cc *.[ch]xx *.[ch]pp *.[CHh] *.CC *.HH *.[ch]++")
+     ("hh" . "*.hxx *.hpp *.[Hh] *.HH *.h++")
+     ("h" . "*.h")
+     ("l" . "[Cc]hange[Ll]og*")
+     ("m" . "[Mm]akefile*")
+     ("tex" . "*.tex")
+     ("texi" . "*.texi")
+     ("asm" . "*.[sS]")
+     ("php" . "*.php *.inc"))))
+ '(ibuffer-saved-filter-groups
+   (quote
+    (("justin"
+      ("P4 Output"
+       (name . "*P4"))
+      ("Models"
+       (filename . "models"))
+      ("Test PHP"
+       (name . "test")
+       (mode . php-mode))
+      ("Fixtures"
+       (mode . yaml-mode))
+      ("Controllers"
+       (filename . "controllers"))
+      ("Helpers"
+       (filename . "helpers"))
+      ("Views"
+       (mode . sgml-mode))
+      ("Framework"
+       (filename . "framework"))
+      ("PHP"
+       (mode . php-mode))
+      ("SQL"
+       (or
+        (mode . plsql-mode)
+        (mode . sql-mode)))
+      ("Oracle Sessions"
+       (mode . sql-interactive-mode))
+      ("Org Mode"
+       (mode . org-mode))
+      ("Python"
+       (mode . python-mode))
+      ("Javascript"
+       (mode . js2-mode))
+      ("Emacs Config"
+       (mode . emacs-lisp-mode))
+      ("SRC"
+       (filename . "src/php"))
+      ("Logs"
+       (name . "\\.log"))
+      ("Dired"
+       (mode . dired-mode))
+      ("P4 Output"
+       (name . "*P4")))
+     ("justin-default-buffer-groups"
+      ("Models"
+       (filename . "models"))
+      ("Test PHP"
+       (name . "test")
+       (mode . php-mode))
+      ("Fixtures"
+       (mode . yaml-mode))
+      ("Controllers"
+       (filename . "controllers"))
+      ("Helpers"
+       (filename . "helpers"))
+      ("Views"
+       (mode . sgml-mode))
+      ("Framework"
+       (filename . "framework"))
+      ("PHP"
+       (mode . php-mode))
+      ("SQL"
+       (or
+        (mode . plsql-mode)
+        (mode . sql-mode)))
+      ("Oracle Sessions"
+       (mode . sql-interactive-mode))
+      ("Org Mode"
+       (mode . org-mode))
+      ("Python"
+       (mode . python-mode))
+      ("Javascript"
+       (mode . js2-mode))
+      ("Emacs Config"
+       (mode . emacs-lisp-mode))
+      ("SRC"
+       (filename . "src/php"))
+      ("Logs"
+       (name . "\\.log"))
+      ("Dired"
+       (mode . dired-mode))
+      ("P4 Output"
+       (name . "*P4")))
+     ("justin-default-buffer-groups"
+      ("Models"
+       (filename . "models"))
+      ("Test PHP"
+       (name . "test")
+       (mode . php-mode))
+      ("Fixtures"
+       (mode . yaml-mode))
+      ("Controllers"
+       (filename . "controllers"))
+      ("Helpers"
+       (filename . "helpers"))
+      ("Views"
+       (mode . sgml-mode))
+      ("Framework"
+       (filename . "framework"))
+      ("PHP"
+       (mode . php-mode))
+      ("SQL"
+       (or
+        (mode . plsql-mode)
+        (mode . sql-mode)))
+      ("Oracle Sessions"
+       (mode . sql-interactive-mode))
+      ("Org Mode"
+       (mode . org-mode))
+      ("Python"
+       (mode . python-mode))
+      ("Javascript"
+       (mode . js2-mode))
+      ("Emacs Config"
+       (mode . emacs-lisp-mode))
+      ("SRC"
+       (filename . "src/php"))
+      ("Logs"
+       (name . "\\.log"))
+      ("Dired"
+       (mode . dired-mode))))))
+ '(ibuffer-saved-filters
+   (quote
+    (("P4 Output"
+      ((name . "*P4 Output*")))
+     ("gnus"
+      ((or
+        (mode . message-mode)
+        (mode . mail-mode)
+        (mode . gnus-group-mode)
+        (mode . gnus-summary-mode)
+        (mode . gnus-article-mode))))
+     ("programming"
+      ((or
+        (mode . emacs-lisp-mode)
+        (mode . cperl-mode)
+        (mode . c-mode)
+        (mode . java-mode)
+        (mode . idl-mode)
+        (mode . lisp-mode)))))))
  '(ido-cache-ftp-work-directory-time 0.1)
  '(ido-everywhere t)
  '(magit-default-tracking-name-function (quote magit-default-tracking-name-branch-unescaped))
