@@ -12,6 +12,7 @@
 (depends-on "f")
 (depends-on "flx")
 (depends-on "flx-ido")
+(depends-on "ido-ubiquitous")
 (depends-on "flycheck")
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")

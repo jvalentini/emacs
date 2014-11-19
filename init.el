@@ -41,12 +41,14 @@ use to determine if the package is installed/loaded."
   `(eval-after-load (symbol-name ,mode)
      '(progn ,@body)))
 
-;; All proxy config set in /etc/environment
-
-;; (require 'flx-ido)
-;; (flx-ido-mode 1)
-(setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
-(setq ido-auto-merge-work-directories-length -1)
+(after 'ido-ubiquitous-autoloads
+  (setq ido-enable-flex-matching t
+        ido-auto-merge-work-directories-length -1
+        ido-use-faces nil ;; disable ido faces to see flx highlights.)
+  (ido-mode 1)
+  (ido-ubiquitous-mode 1)
+  (require 'flx-ido)
+  (flx-ido-mode 1)))
 
 ;; Project management
 (projectile-global-mode)
