@@ -1,7 +1,9 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'package)
-(setq package-archives (cons '("tromey" . "http://tromey.com/elpa/") package-archives))
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 
 (let ((path (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $PATH")))

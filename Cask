@@ -1,8 +1,10 @@
-(source "tromey" "http://tromey.com/elpa/")
+(source gnu)
 (source melpa)
+(source org)
 
 (depends-on "auto-complete")
 (depends-on "cask")
+(depends-on "cider")
 (depends-on "clojure-mode")
 (depends-on "coffee-mode")
 (depends-on "dash")
