@@ -32,6 +32,8 @@
   (if sqlpath
       (setenv "SQLPATH" sqlpath)))
 
+;; All proxy config set in /etc/environment
+
 
 (defmacro after (mode &rest body)
   "`eval-after-load' MODE evaluate BODY.
