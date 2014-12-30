@@ -652,8 +652,7 @@ With argument ARG, do this that many times."
       ("Dired"
        (mode . dired-mode))
       ("P4 Output"
-       (name . "*P4")))
-     )))
+       (name . "*P4"))))))
  '(ibuffer-saved-filters
    (quote
     (("P4 Output"
