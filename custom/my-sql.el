@@ -25,13 +25,13 @@
   "List of aliases that can be used to specify the production environment.")
 
 (defvar sql-test-env-aliases '("q" "qa" "qadb" "t" "test" "testing")
-  "List of aliases that can be used to specify the production environment.")
+  "List of aliases that can be used to specify the qa environment.")
 
 (defvar sql-dev-env-aliases '("d" "dev" "devdb" "development")
-  "List of aliases that can be used to specify the production environment.")
+  "List of aliases that can be used to specify the dev environment.")
 
 (defvar sql-ut-env-aliases '("u" "ut")
-  "List of aliases that can be used to specify the production environment.")
+  "List of aliases that can be used to specify the unit test environment.")
 
 (defvar sql-vm-env-aliases '("v" "vm")
   "List of aliases that can be used to specify the vagrant environment.")
