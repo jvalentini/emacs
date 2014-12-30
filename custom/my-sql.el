@@ -33,6 +33,9 @@
 (defvar sql-ut-env-aliases '("u" "ut")
   "List of aliases that can be used to specify the production environment.")
 
+(defvar sql-vm-env-aliases '("v" "vm")
+  "List of aliases that can be used to specify the vagrant environment.")
+
 (defun my-sql-reconnect ()
   "Given a sql-mode buffer that has timed out, reconnect to the same matter and db."
   (interactive)
@@ -67,22 +70,27 @@
 (require 'request)
 
 (defun my-sql-matter-to-tns (matter env)
-  (if (member env sql-ut-env-aliases)
-      (setq sql-database "ut.amicillc.com")
-    (request
-     (concat "http://infrastructure.amicillc.com/matter_schema?matter=" matter "&environment=" (cdr (assoc env sql-env-map)))
-     :parser 'json-read
-     :success (function*
-               (lambda (&key data &allow-other-keys)
-                 (setq sql-database (cdr (assoc 'tns (assoc 'database (elt data 0)))))))
-     :sync t
-     :timeout 2)))
+  (cond ((member env sql-ut-env-aliases)
+         (setq sql-database "ut.amicillc.com"))
+        ((member env sql-vm-env-aliases)
+         (setq sql-database "13.242.230.43/omnix"
+               sql-user "system"
+               sql-password "Welcome01"))
+        (t
+         (request
+          (concat "http://infrastructure.amicillc.com/matter_schema?matter=" matter "&environment=" (cdr (assoc env sql-env-map)))
+          :parser 'json-read
+          :success (function*
+                    (lambda (&key data &allow-other-keys)
+                      (setq sql-database (cdr (assoc 'tns (assoc 'database (elt data 0)))))))
+          :sync t
+          :timeout 2))))
 
 (defun my-sql-connect (user password)
   "Given a matter and an environment (dev, qa, prod, ut), find the correct database to connect to."
   (interactive)
   (setq my-sql-matter (read-from-minibuffer "Matter: " nil nil nil '(sql-matter-history . 1)))
-  (let* ((env (read-from-minibuffer "Environment (d, q, p, u): " nil nil nil '(sql-env-history . 1)))
+  (let* ((env (read-from-minibuffer "Environment (d, q, p, u, v): " nil nil nil '(sql-env-history . 1)))
          (sql-user user)
          (sql-password password))
     (my-sql-matter-to-tns my-sql-matter env)
