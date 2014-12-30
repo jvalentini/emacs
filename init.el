@@ -561,8 +561,12 @@ With argument ARG, do this that many times."
 (require 'compile)
 (defun my-php-hook-function ()
  (set (make-local-variable 'compile-command) (format "phpcs --report=emacs --standard=PEAR %s" (buffer-file-name))))
-(add-hook 'php-mode-hook 'my-php-hook-function)
-(add-hook 'php-mode-hook (lambda () (subword-mode 1)))
+;; (add-hook 'php-mode-hook 'my-php-hook-function)
+(add-hook 'php-mode-hook (lambda ()
+                           (my-php-hook-function)
+                           (php-enable-psr2-coding-style)
+                           (setq show-trailing-whitespace t)
+                           (subword-mode 1)))
 
 (defun upcase-rectangle (b e)
   "change chars in rectangle to uppercase"
@@ -677,7 +681,6 @@ With argument ARG, do this that many times."
  '(magit-default-tracking-name-function (quote magit-default-tracking-name-branch-unescaped))
  '(magit-diff-use-overlays nil)
  '(mode-require-final-newline nil)
- '(php-mode-coding-style (quote psr2))
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" ".sandbox" "amici_php/vendor" "amici_php/web/javascript" "amici_php/web/css" "amici_php/web/codebase" "amici_php/nodejs")))
