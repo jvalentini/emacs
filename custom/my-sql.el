@@ -9,9 +9,6 @@
   :type 'string
   :group 'SQL)
 
-(defconst oracle-app-pass "d77bd3d51750e353cb02561024a842"
-  "Oracle secret key")
-
 (defvar sql-matter-history nil
   "History of matters used.")
 
