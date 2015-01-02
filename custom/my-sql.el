@@ -93,12 +93,10 @@
     (my-sql-matter-to-tns my-sql-matter env)
     (setq sql-oracle-options (list "@set_schema.sql" (upcase my-sql-matter)))
     (let ((sql-buffer-name (concat sql-user "@" (downcase my-sql-matter) "@" sql-database)))
-      (if (get-buffer sql-buffer-name)
-          (switch-to-buffer sql-buffer-name)
-        (with-current-buffer "*scratch*"
-          (sql-oracle)
-          (switch-to-buffer "*SQL*")
-          (rename-buffer sql-buffer-name t))))))
+      (with-current-buffer "*scratch*"
+        (sql-oracle)
+        (switch-to-buffer "*SQL*")
+        (rename-buffer sql-buffer-name t)))))
 
 (defun my-sql-dev-connect ()
   "Connect to a matter/schema with my dev account"
