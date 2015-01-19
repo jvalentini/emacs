@@ -285,10 +285,6 @@ use to determine if the package is installed/loaded."
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-;; (setq cider-popup-stacktraces nil)
-(add-hook 'cider-repl-mode-hook 'subword-mode)
-(add-hook 'clojure-mode-hook 'cider-mode)
-
 (load "amici")
 (load "sql")
 ;; When starting a daemon loading lib/sqlplus causes an error
@@ -373,17 +369,18 @@ With argument ARG, do this that many times."
 (setq comint-prompt-read-only t)
 
 ;; CIDER config
-;; (setq cider-repl-pop-to-buffer-on-connect nil)
-;; (setq cider-popup-stacktraces nil)
-;; (setq cider-repl-popup-stacktraces t)
-;; (setq cider-auto-select-error-buffer t)
-;; (setq cider-repl-display-in-current-window t)
-;; (setq cider-repl-print-length 100)
-;; (setq cider-repl-wrap-history t)
-;; (setq cider-repl-history-size 1000)
-;; (add-hook 'cider-repl-mode-hook 'subword-mode)
-
+(setq cider-repl-pop-to-buffer-on-connect nil)
+(setq cider-popup-stacktraces nil)
+(setq cider-repl-popup-stacktraces t)
+(setq cider-auto-select-error-buffer t)
+(setq cider-repl-display-in-current-window t)
+(setq cider-repl-print-length 100)
+(setq cider-repl-wrap-history t)
+(setq cider-repl-history-size 1000)
+(add-hook 'clojure-mode-hook 'cider-mode)
 (add-hook 'clojure-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'cider-repl-mode-hook 'subword-mode)
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
 
 (defun magit-default-tracking-name-branch-unescaped
   (remote banch)
