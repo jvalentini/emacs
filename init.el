@@ -408,7 +408,7 @@ With argument ARG, do this that many times."
 (set-frame-parameter nil 'fullscreen 'maximized)
 
 (require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o"))
+(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o" "C-c" "C-c C-d"))
 (guide-key-mode 1)
 
 (require 'auto-complete-config)
