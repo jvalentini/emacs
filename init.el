@@ -1,10 +1,15 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
+(require 'pallet)
+(pallet-mode t)
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")
+                         ("melpa-stable" . "http://stable.melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
+
+(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 
 (let ((path (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $PATH")))
   (setenv "PATH" path)
