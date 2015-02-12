@@ -9,7 +9,8 @@
                          ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 
-(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+(when (and (= emacs-major-version 24) (>= emacs-minor-version 4))
+  (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t))
 
 (let ((path (shell-command-to-string ". ~/dotfiles/.exports.sh; echo -n $PATH")))
   (setenv "PATH" path)
