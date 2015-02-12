@@ -701,7 +701,7 @@ With argument ARG, do this that many times."
  '(mode-require-final-newline nil)
  '(projectile-globally-ignored-directories
    (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" ".sandbox" "amici_php/vendor" "amici_php/web/javascript" "amici_php/web/css" "amici_php/web/codebase" "amici_php/nodejs")))
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" ".sandbox" "amici_php/vendor" "amici_php/web/javascript" "amici_php/web/css" "amici_php/web/codebase" "amici_php/nodejs/node_modules" "amici_php/app/assets/js/vendor" "node_modules" "amici_php/lib/PEAR" "amici_php/web/help" "vendor")))
  '(python-check-command "pylint")
  '(solarized-height-plus-1 1)
  '(solarized-height-plus-2 1)
