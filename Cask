@@ -21,6 +21,7 @@
 (depends-on "google-this")
 (depends-on "guide-key")
 (depends-on "haskell-mode")
+(depends-on "helm")
 (depends-on "highlight")
 (depends-on "howdoi")
 (depends-on "ido-ubiquitous")
