@@ -52,7 +52,7 @@
 ;; if something looks like a jira task make it clickable and browse to it
 (add-to-list 'erc-button-alist '("\\b\\(xls-\\)?\\([0-9]+\\)\\b" 0 t (lambda (issue-code)
                                                                        (browse-url
-                                                                        (concat "http://jira.amicillc.com:8080/browse/XLS-" issue-code))) 2))
+                                                                        (concat "http://jira.amicillc.com/browse/XLS-" issue-code))) 2))
 
 (require 'notifications)
 (defun erc-global-notify (match-type nick message)
