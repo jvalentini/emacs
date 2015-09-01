@@ -47,15 +47,10 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-x i") 'ibuffer)
 (global-set-key (kbd "C-x g") 'rgrep)
+(global-set-key (kbd "C-x p g") 'rgrep)
 (global-set-key (kbd "C-x d") 'my-get-db)
 
 (global-set-key (kbd "C-x r u") 'upcase-rectangle)
-
-;; Perforce
-(global-set-key (kbd "C-x p o") 'my-p4-opened-default)
-(global-set-key (kbd "C-x p O") 'my-p4-opened-default)
-(global-set-key (kbd "C-x p C") 'my-p4-opened-catchall)
-(global-set-key (kbd "C-x p P") 'my-p4-changes-pending)
 
 (global-set-key (kbd "C-c g") 'goto-line)
 (global-set-key (kbd "C-c r") 'query-replace)
