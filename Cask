@@ -20,6 +20,7 @@
 (depends-on "git-rebase-mode")
 (depends-on "google-this")
 (depends-on "guide-key")
+(depends-on "haml-mode")
 (depends-on "haskell-mode")
 (depends-on "helm")
 (depends-on "highlight")
