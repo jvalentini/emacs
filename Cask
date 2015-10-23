@@ -32,7 +32,6 @@
 (depends-on "helm-projectile")
 (depends-on "highlight")
 (depends-on "howdoi")
-(depends-on "ido-ubiquitous")
 (depends-on "inf-ruby")
 (depends-on "json-mode")
 (depends-on "json-reformat")
