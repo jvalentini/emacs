@@ -2,12 +2,6 @@
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
-(require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")
-                         ("melpa-stable" . "http://stable.melpa.org/packages/")
-                         ("org" . "http://orgmode.org/elpa/")))
-(package-initialize)
 
 (when (and (= emacs-major-version 24) (>= emacs-minor-version 4))
   (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t))
