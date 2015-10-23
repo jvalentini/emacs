@@ -40,7 +40,6 @@
 
 ;; All proxy config set in /etc/environment
 
-
 (defmacro after (mode &rest body)
   "`eval-after-load' MODE evaluate BODY.
 This allows us to define configuration for features that aren't
@@ -52,19 +51,23 @@ use to determine if the package is installed/loaded."
      '(progn ,@body)))
 
 ;; disable ido faces to see flx highlights.
-(after 'ido-ubiquitous-autoloads
-  (setq ido-enable-flex-matching t
-        ido-auto-merge-work-directories-length -1
-        ido-use-faces nil)
-  (ido-mode 1)
-  (ido-ubiquitous-mode 1)
-  (require 'flx-ido)
-  (flx-ido-mode 1))
+;; (after 'ido-ubiquitous-autoloads
+;;   (setq ido-auto-merge-work-directories-length -1)
+;;   (require 'flx-ido)
+;;   (ido-mode 1)
+;;   (ido-everywhere 1)
+;;   (ido-ubiquitous-mode 1)
+;;   (setq ido-enable-flex-matching t)
+;;   (setq ido-use-faces nil)
+;;   (flx-ido-mode 1))
 
 ;; Project management
 (projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
 (setq projectile-enable-caching t)
 (setq projectile-keymap-prefix (kbd "C-x p"))
+(global-set-key (kbd "C-c p g") 'projectile-grep)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -80,6 +83,7 @@ use to determine if the package is installed/loaded."
  byte-compile-verbose nil
  byte-compile-warnings nil
  confirm-kill-emacs 'yes-or-no-p
+ create-lockfiles nil
  dabbrev-abbrev-skip-leading-regexp "\\$"
  dired-recursive-copies 'always
  dired-recursive-deletes 'always
@@ -110,6 +114,7 @@ use to determine if the package is installed/loaded."
       remember-notes-buffer-name "*scratch*")
 
 (require 'smartparens-config)
+(sp-pair "/" nil :actions :rem)
 
 (blink-cursor-mode t)
 (column-number-mode t)
@@ -117,9 +122,8 @@ use to determine if the package is installed/loaded."
 (desktop-save-mode t)
 (global-font-lock-mode t)
 (icomplete-mode t)
-(ido-mode t)
+;; (ido-mode t)
 (line-number-mode t)
-(set-fringe-style -1)
 (show-paren-mode t)
 (smartparens-global-mode t)
 (tooltip-mode -1)
@@ -134,6 +138,7 @@ use to determine if the package is installed/loaded."
 (setq auto-revert-remote-files nil
       auto-revert-use-notify t)
 
+;; (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
@@ -227,23 +232,23 @@ use to determine if the package is installed/loaded."
         ("t" "Todo" entry (file+headline org-default-notes-file "Tasks")
          "* TODO %?\n  %i\n  %a")))
 
-(add-hook 'python-mode-hook '(lambda ()
-                               (setq python-indent-offset 4)
-                               (require 'virtualenvwrapper)
-                               (venv-initialize-interactive-shells)
-                               (venv-initialize-eshell)
-                               (setq venv-location "~/virtualenv/")
-                               (setq
-                                python-shell-interpreter "ipython"
-                                python-shell-interpreter-args ""
-                                python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-                                python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-                                python-shell-completion-setup-code
-                                "from IPython.core.completerlib import module_completion"
-                                python-shell-completion-module-string-code
-                                "';'.join(module_completion('''%s'''))\n"
-                                python-shell-completion-string-code
-                                "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")))
+;; (add-hook 'python-mode-hook '(lambda ()
+;;                                (setq python-indent-offset 4)
+;;                                (require 'virtualenvwrapper)
+;;                                (venv-initialize-interactive-shells)
+;;                                (venv-initialize-eshell)
+;;                                (setq venv-location "~/virtualenv/")
+;;                                (setq
+;;                                 python-shell-interpreter "ipython"
+;;                                 python-shell-interpreter-args ""
+;;                                 python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+;;                                 python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+;;                                 python-shell-completion-setup-code
+;;                                 "from IPython.core.completerlib import module_completion"
+;;                                 python-shell-completion-module-string-code
+;;                                 "';'.join(module_completion('''%s'''))\n"
+;;                                 python-shell-completion-string-code
+;;                                 "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")))
 
 (autoload 'ruby-mode "ruby-mode" nil t)
 (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
@@ -291,7 +296,7 @@ use to determine if the package is installed/loaded."
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-(load "amici")
+(load "amici-el/amici")
 (load "sql")
 ;; When starting a daemon loading lib/sqlplus causes an error
 ;; (load "lib/sqlplus")
@@ -328,6 +333,7 @@ use to determine if the package is installed/loaded."
 (add-to-list 'auto-mode-alist '("\\.org$"    . org-mode))
 (add-to-list 'auto-mode-alist '("\\.py$"     . python-mode))
 (add-to-list 'auto-mode-alist '("\\.hs$"     . haskell-mode))
+(add-to-list 'auto-mode-alist '("test.log$"  . json-mode))
 
 ;; YAML
 (add-hook 'yaml-mode-hook 'c-subword-mode)
@@ -411,7 +417,7 @@ With argument ARG, do this that many times."
 (set-frame-parameter nil 'fullscreen 'maximized)
 
 (require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o" "C-c" "C-c C-d"))
+(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o" "C-c" "C-c C-d" "C-c h"))
 (guide-key-mode 1)
 
 (require 'auto-complete-config)
@@ -561,13 +567,13 @@ With argument ARG, do this that many times."
 (eval-after-load 'tramp
   '(vagrant-tramp-enable))
 
+(require 'smart-compile)
+
+
 (require 'compile)
 (defun my-php-hook-function ()
- (set (make-local-variable 'compile-command) (format "phpcs --report=emacs --standard=PEAR %s" (buffer-file-name))))
-;; (add-hook 'php-mode-hook 'my-php-hook-function)
+  (set (make-local-variable 'compile-command) (format "phpcs --report=emacs --standard=PSR2 %s" (buffer-file-name))))
 (add-hook 'php-mode-hook (lambda ()
-                           (my-php-hook-function)
-                           (php-enable-psr2-coding-style)
                            (setq show-trailing-whitespace t)
                            (subword-mode 1)))
 
@@ -591,12 +597,47 @@ With argument ARG, do this that many times."
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2))
 (add-hook 'web-mode-hook 'my-web-mode-hook)
+
+(require 'helm)
+(require 'helm-config)
+(require 'helm-ls-git)
+(require 'helm-descbinds)
+;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x C-d") 'helm-browse-project)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+(global-unset-key (kbd "C-x c"))
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t
+      helm-mode-fuzzy-match t
+      helm-completion-in-region-fuzzy-match t)
+(helm-mode 1)
+(helm-descbinds-mode)
+
+(require 'haml-mode)
+
+;; (global-wakatime-mode)
+
+;; (set-fringe-style -1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -696,14 +737,31 @@ With argument ARG, do this that many times."
         (mode . idl-mode)
         (mode . lisp-mode)))))))
  '(ido-cache-ftp-work-directory-time 0.1)
- '(ido-everywhere t)
  '(magit-default-tracking-name-function (quote magit-default-tracking-name-branch-unescaped))
  '(magit-diff-use-overlays nil)
+ '(magit-use-overlays nil)
  '(mode-require-final-newline nil)
  '(projectile-globally-ignored-directories
    (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" ".sandbox" "amici_php/vendor" "amici_php/web/javascript" "amici_php/web/css" "amici_php/web/codebase" "amici_php/nodejs/node_modules" "amici_php/app/assets/js/vendor" "node_modules" "amici_php/lib/PEAR" "amici_php/web/help" "vendor")))
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" ".sandbox" "amici_php/vendor" "amici_php/web/javascript" "amici_php/web/css" "amici_php/web/codebase" "amici_php/nodejs/node_modules" "amici_php/app/assets/js/vendor" "node_modules" "amici_php/lib/PEAR" "amici_php/web/help" "vendor" "amici_php/vendor")))
  '(python-check-command "pylint")
+ '(safe-local-variable-values (quote ((firestarter . ert-run-tests-interactively))))
+ '(smart-compile-alist
+   (quote
+    ((emacs-lisp-mode emacs-lisp-byte-compile)
+     (html-mode browse-url-of-buffer)
+     (nxhtml-mode browse-url-of-buffer)
+     (html-helper-mode browse-url-of-buffer)
+     (octave-mode run-octave)
+     ("\\.c\\'" . "gcc -O2 %f -lm -o %n")
+     ("\\.[Cc]+[Pp]*\\'" . "g++ -O2 %f -lm -o %n")
+     ("\\.m\\'" . "gcc -O2 %f -lobjc -lpthread -o %n")
+     ("\\.java\\'" . "javac %f")
+     ("\\.php\\'" . "phpunit --filter testMe %f")
+     ("\\.cron\\(tab\\)?\\'" . "crontab %f")
+     ("\\.tex\\'" tex-file)
+     ("\\.texi\\'" . "makeinfo %f")
+     ("\\.rb\\'" . "ruby %f"))))
  '(solarized-height-plus-1 1)
  '(solarized-height-plus-2 1)
  '(solarized-height-plus-3 1)

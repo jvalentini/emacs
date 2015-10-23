@@ -43,8 +43,8 @@
 ;; (global-set-key (kbd "M-<up>") 'windmove-up)              ; move to upper window
 ;; (global-set-key (kbd "M-<down>") 'windmove-down)          ; move to downer window
 
-(global-set-key (kbd "C-x v") 'ido-switch-buffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;; (global-set-key (kbd "C-x v") 'ido-switch-buffer)
+(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "C-x i") 'ibuffer)
 (global-set-key (kbd "C-x g") 'rgrep)
 (global-set-key (kbd "C-x p g") 'rgrep)
