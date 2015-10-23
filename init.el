@@ -296,19 +296,24 @@ use to determine if the package is installed/loaded."
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-(load "amici-el/amici")
+;; (setq cider-popup-stacktraces nil)
+(add-hook 'cider-repl-mode-hook 'subword-mode)
+(add-hook 'clojure-mode-hook 'cider-mode)
+
+(load "amici")
 (load "sql")
-;; When starting a daemon loading lib/sqlplus causes an error
-;; (load "lib/sqlplus")
+;; When starting a daemon loading sqlplus causes an error
+;; (load "sqlplus")
 (load "plsql")
 (load "my-sql")
 (load "my-erc")
 (load "my-amici")
+(load "my-php-mode")
 (load "my-keys")
 
 ;; Deprecated. No longer using p4.
-;; (load "lib/p4")
-;; (load "custom/my-p4")
+;; (load "p4")
+;; (load "my-p4")
 
 ;; autoload modes
 (autoload 'plsql-mode   "plsql")
