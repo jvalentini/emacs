@@ -286,7 +286,7 @@ use to determine if the package is installed/loaded."
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'cider-mode)
 
-(load "amici")
+(load "amici-el/amici")
 (load "sql")
 ;; When starting a daemon loading sqlplus causes an error
 ;; (load "sqlplus")
