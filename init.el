@@ -55,14 +55,6 @@ use to determine if the package is installed/loaded."
 ;;   (setq ido-use-faces nil)
 ;;   (flx-ido-mode 1))
 
-;; Project management
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
-(setq projectile-enable-caching t)
-(setq projectile-keymap-prefix (kbd "C-x p"))
-(global-set-key (kbd "C-c p g") 'projectile-grep)
-
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Tab = 4 spaces
@@ -631,6 +623,14 @@ With argument ARG, do this that many times."
       helm-completion-in-region-fuzzy-match t)
 (helm-mode 1)
 (helm-descbinds-mode)
+
+;; Project management
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+(setq projectile-enable-caching t)
+(setq projectile-keymap-prefix (kbd "C-x p"))
+(global-set-key (kbd "C-c p g") 'projectile-grep)
 
 (require 'haml-mode)
 
