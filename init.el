@@ -637,6 +637,11 @@ With argument ARG, do this that many times."
 
 ;; (set-fringe-style -1)
 
+;; Ctrl+space, Ctrl + space not working then install dconf-editor,
+;; open it, nav to desktop >> ibus >> general >> hotkey, remove
+;; 'Ctrl+Space' from trigger and triggers values.
+;; http://askubuntu.com/questions/243639/ctrlspace-has-been-bound-to-invoke-some-input-method-and-does-not-work-in-ema
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
