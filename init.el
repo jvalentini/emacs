@@ -325,6 +325,10 @@ use to determine if the package is installed/loaded."
 (add-to-list 'auto-mode-alist '("\\.hs$"     . haskell-mode))
 (add-to-list 'auto-mode-alist '("test.log$"  . json-mode))
 
+;; Haskell
+(add-to-list 'auto-mode-alist '("xmobarrc" . haskell-mode))
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
 ;; YAML
 (add-hook 'yaml-mode-hook 'c-subword-mode)
 
