@@ -673,6 +673,7 @@ With argument ARG, do this that many times."
    (quote
     (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands notifications readonly replace ring scrolltobottom smiley stamp spelling track)))
  '(erc-user-full-name "Justin Valentini")
+ '(flycheck-check-syntax-automatically (quote (save new-line mode-enabled)))
  '(grep-files-aliases
    (quote
     (("all" . "* .*")
