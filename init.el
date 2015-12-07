@@ -633,6 +633,8 @@ With argument ARG, do this that many times."
 
 (require 'haml-mode)
 
+(require 'editorconfig)
+(editorconfig-mode 1)
 ;; (global-wakatime-mode)
 
 ;; (set-fringe-style -1)

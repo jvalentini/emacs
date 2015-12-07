@@ -10,6 +10,7 @@
 (depends-on "clojure-mode")
 (depends-on "coffee-mode")
 (depends-on "drag-stuff")
+(depends-on "editorconfig")
 (depends-on "epl")
 (depends-on "expand-region")
 (depends-on "f")
