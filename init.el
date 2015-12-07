@@ -635,6 +635,9 @@ With argument ARG, do this that many times."
 
 (require 'editorconfig)
 (editorconfig-mode 1)
+
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+
 ;; (global-wakatime-mode)
 
 ;; (set-fringe-style -1)
