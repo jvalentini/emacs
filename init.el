@@ -334,6 +334,8 @@ use to determine if the package is installed/loaded."
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
+
 (defun backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
 With argument ARG, do this that many times."
@@ -787,6 +789,9 @@ With argument ARG, do this that many times."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-face-tag ((t (:inherit variable-pitch :foreground "#6c71c4" :weight normal :height 1.2))))
+ '(custom-group-tag ((t (:inherit variable-pitch :foreground "#268bd2" :height 1.2))))
+ '(custom-variable-tag ((t (:inherit variable-pitch :foreground "#2aa198" :height 1.2))))
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#cb4b16" :height 1.0))))
  '(org-level-2 ((t (:inherit variable-pitch :foreground "#859900" :height 1.0))))
  '(org-level-3 ((t (:inherit variable-pitch :foreground "#268bd2" :height 1.0))))
