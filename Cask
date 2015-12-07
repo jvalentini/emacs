@@ -27,6 +27,7 @@
 (depends-on "haml-mode")
 (depends-on "haskell-mode")
 (depends-on "helm")
+(depends-on "helm-ag")
 (depends-on "helm-core")
 (depends-on "helm-descbinds")
 (depends-on "helm-ls-git")
