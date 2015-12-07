@@ -751,8 +751,13 @@ With argument ARG, do this that many times."
         (mode . idl-mode)
         (mode . lisp-mode)))))))
  '(ido-cache-ftp-work-directory-time 0.1)
+ '(magit-branch-arguments (quote ("--track")))
  '(magit-default-tracking-name-function (quote magit-default-tracking-name-branch-unescaped))
  '(magit-diff-use-overlays nil)
+ '(magit-fetch-arguments (quote ("--prune")))
+ '(magit-pull-arguments (quote ("--rebase")))
+ '(magit-push-always-verify nil)
+ '(magit-push-arguments (quote ("--set-upstream")))
  '(magit-use-overlays nil)
  '(mode-require-final-newline nil)
  '(projectile-globally-ignored-directories
