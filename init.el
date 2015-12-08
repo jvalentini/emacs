@@ -391,7 +391,7 @@ With argument ARG, do this that many times."
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
 
 (defun magit-default-tracking-name-branch-unescaped
-  (remote banch)
+  (remote branch)
   "Use just the branch name for tracking branches."
   branch)
 
