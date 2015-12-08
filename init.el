@@ -400,6 +400,7 @@ With argument ARG, do this that many times."
 (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+(add-hook 'json-mode-hook #'enable-paredit-mode)
 
 ;; Add rainbow delimiters in all programming modes
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
