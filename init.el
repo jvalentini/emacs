@@ -789,7 +789,8 @@ With argument ARG, do this that many times."
  '(sql-product (quote oracle))
  '(tramp-default-host "alyssa.amicillc.com")
  '(tramp-default-method "ssh")
- '(tramp-default-user "jvalentini"))
+ '(tramp-default-user "jvalentini")
+ '(helm-ag-base-command "ag --nocolor --nogroup --ignore-case"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

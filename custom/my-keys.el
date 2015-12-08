@@ -46,8 +46,8 @@
 ;; (global-set-key (kbd "C-x v") 'ido-switch-buffer)
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "C-x i") 'ibuffer)
-(global-set-key (kbd "C-x g") 'rgrep)
-(global-set-key (kbd "C-x p g") 'rgrep)
+(global-set-key (kbd "C-x g") 'helm-do-ag-project-root)
+(global-set-key (kbd "C-x p g") 'helm-do-ag-project-root)
 (global-set-key (kbd "C-x d") 'my-get-db)
 
 (global-set-key (kbd "C-x r u") 'upcase-rectangle)
