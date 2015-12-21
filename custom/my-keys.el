@@ -63,7 +63,6 @@
 (global-set-key (kbd "C-c b") 'bury-buffer)
 (global-set-key (kbd "C-c c") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
-(global-set-key (kbd "C-c o") 'sql-oracle)
 (global-set-key (kbd "C-c i") 'delete-enclosed-text)
 (global-set-key (kbd "M-O Q") 'my-sql-app-connect)
 (global-set-key (kbd "M-O R") 'my-sql-dev-connect)
