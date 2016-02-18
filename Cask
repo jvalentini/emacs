@@ -22,6 +22,7 @@
 (depends-on "gist")
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")
+(depends-on "gitlab")
 (depends-on "google-this")
 (depends-on "guide-key")
 (depends-on "haml-mode")
