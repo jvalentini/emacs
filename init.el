@@ -328,7 +328,7 @@ use to determine if the package is installed/loaded."
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 ;; YAML
-(add-hook 'yaml-mode-hook 'c-subword-mode)
+(add-hook 'yaml-mode-hook 'subword-mode)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
