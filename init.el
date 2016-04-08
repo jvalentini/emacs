@@ -317,7 +317,6 @@ use to determine if the package is installed/loaded."
 (add-to-list 'auto-mode-alist '("\\.sqp$"    . sqlplus-mode))
 (add-to-list 'auto-mode-alist '("\\.pk[sb]$" . plsql-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$"    . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.list$"   . list-mode))
 (add-to-list 'auto-mode-alist '("\\.org$"    . org-mode))
 (add-to-list 'auto-mode-alist '("\\.py$"     . python-mode))
 (add-to-list 'auto-mode-alist '("\\.hs$"     . haskell-mode))
