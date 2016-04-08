@@ -286,14 +286,12 @@ use to determine if the package is installed/loaded."
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'cider-mode)
 
-(load "amici-el/amici")
 (load "sql")
 ;; When starting a daemon loading sqlplus causes an error
 ;; (load "sqlplus")
 (load "plsql")
 (load "my-sql")
 (load "my-erc")
-(load "my-amici")
 (load "my-keys")
 
 ;; Deprecated. No longer using p4.
@@ -810,7 +808,7 @@ With argument ARG, do this that many times."
  '(mode-require-final-newline nil)
  '(projectile-globally-ignored-directories
    (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" ".sandbox" "amici_php/vendor" "amici_php/web/javascript" "amici_php/web/css" "amici_php/web/codebase" "amici_php/nodejs/node_modules" "amici_php/app/assets/js/vendor" "node_modules" "amici_php/lib/PEAR" "amici_php/web/help" "vendor" "amici_php/vendor")))
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "vendor")))
  '(python-check-command "pylint")
  '(safe-local-variable-values (quote ((firestarter . ert-run-tests-interactively))))
  '(smart-compile-alist
@@ -834,9 +832,6 @@ With argument ARG, do this that many times."
  '(solarized-height-plus-3 1)
  '(solarized-height-plus-4 1)
  '(sql-product (quote oracle))
- '(tramp-default-host "alyssa.amicillc.com")
- '(tramp-default-method "ssh")
- '(tramp-default-user "jvalentini")
  '(helm-ag-base-command "ag --nocolor --nogroup --ignore-case"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
