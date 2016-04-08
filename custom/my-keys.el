@@ -44,44 +44,8 @@
 ;; (global-set-key (kbd "M-<down>") 'windmove-down)          ; move to downer window
 
 ;; (global-set-key (kbd "C-x v") 'ido-switch-buffer)
-(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-(global-set-key (kbd "C-x i") 'ibuffer)
-(global-set-key (kbd "C-x g") 'helm-do-ag-project-root)
-(global-set-key (kbd "C-x p g") 'helm-do-ag-project-root)
 (global-set-key (kbd "C-x d") 'my-get-db)
 
-(global-set-key (kbd "C-x r u") 'upcase-rectangle)
-
-(global-set-key (kbd "C-c g") 'goto-line)
-(global-set-key (kbd "C-c r") 'query-replace)
-(global-set-key (kbd "C-c a") 'align-regexp)
-(global-set-key (kbd "C-c t") 'delete-trailing-whitespace)
-(global-set-key (kbd "C-c w") 'backward-kill-word)
-(global-set-key (kbd "C-c s") 'shrink-window)
-(global-set-key (kbd "C-c e") 'enlarge-window)
-(global-set-key (kbd "C-c C-u") 'uncomment-region)
-(global-set-key (kbd "C-c b") 'bury-buffer)
-(global-set-key (kbd "C-c c") 'comment-or-uncomment-region)
-(global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
-(global-set-key (kbd "C-c i") 'delete-enclosed-text)
-(global-set-key (kbd "M-O Q") 'my-sql-app-connect)
-(global-set-key (kbd "M-O R") 'my-sql-dev-connect)
-(global-set-key (kbd "C-c f") 'show-file-name)
-
-(global-set-key (kbd "M-n") 'next-line)
-(global-set-key (kbd "M-p") 'previous-line)
-(global-set-key (kbd "M-k") 'copy-line)
-
-(global-set-key (read-kbd-macro "<M-DEL>") 'backward-delete-word)
-
-(global-set-key (kbd "S-<down>")     'scroll-one-line-up)
-(global-set-key (kbd "S-<add>")      'scroll-one-line-up)
-(global-set-key (kbd "S-<up>")       'scroll-one-line-down)
-(global-set-key (kbd "S-<subtract>") 'scroll-one-line-down)
-
-(define-key global-map "\C-cv" 'vc-prefix-map)
-(global-set-key (kbd "C-c v v") 'vc-next-action)
-(global-set-key (kbd "C-x m") 'magit-status)
 
 ;; (eval-after-load "lib/amici")
 ;;   '(progn
@@ -116,12 +80,3 @@
 ;;      (global-set-key (kbd "<f8>") 'justin-find-main-file)
 ;;      (global-set-key (kbd "<f9>") 'justin-blame)
 ;;      (global-set-key (kbd "C-x a f") 'justin-find-fixture-file)))
-
-;; Prompt before exiting Emacs.
-(global-unset-key "\C-x\C-c")
-(global-set-key "\C-x\C-c"
-                (lambda ()
-                  "Ask for confirmation before exiting emacs"
-                  (interactive)
-                  (if (yes-or-no-p "Are you sure you want to exit? ")
-                      (save-buffers-kill-terminal))))

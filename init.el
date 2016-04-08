@@ -96,6 +96,15 @@ use to determine if the package is installed/loaded."
  x-select-enable-primary t
  hi-lock-auto-select-face t)
 
+;; Prompt before exiting Emacs.
+(global-unset-key "\C-x\C-c")
+(global-set-key "\C-x\C-c"
+                (lambda ()
+                  "Ask for confirmation before exiting emacs"
+                  (interactive)
+                  (if (yes-or-no-p "Are you sure you want to exit? ")
+                      (save-buffers-kill-terminal))))
+
 (setq initial-buffer-choice 'remember-notes
       remember-notes-buffer-name "*scratch*")
 
@@ -292,7 +301,6 @@ use to determine if the package is installed/loaded."
 (load "plsql")
 (load "my-sql")
 (load "my-erc")
-(load "my-keys")
 
 ;; Deprecated. No longer using p4.
 ;; (load "p4")
@@ -701,6 +709,36 @@ With argument ARG, do this that many times."
 ;; open it, nav to desktop >> ibus >> general >> hotkey, remove
 ;; 'Ctrl+Space' from trigger and triggers values.
 ;; http://askubuntu.com/questions/243639/ctrlspace-has-been-bound-to-invoke-some-input-method-and-does-not-work-in-ema
+
+(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+(global-set-key (kbd "C-x i") 'ibuffer)
+(global-set-key (kbd "C-x g") 'helm-do-ag-project-root)
+(global-set-key (kbd "C-x p g") 'helm-do-ag-project-root)
+(global-set-key (kbd "C-x r u") 'upcase-rectangle)
+(global-set-key (kbd "C-c g") 'goto-line)
+(global-set-key (kbd "C-c r") 'query-replace)
+(global-set-key (kbd "C-c a") 'align-regexp)
+(global-set-key (kbd "C-c t") 'delete-trailing-whitespace)
+(global-set-key (kbd "C-c w") 'backward-kill-word)
+(global-set-key (kbd "C-c s") 'shrink-window)
+(global-set-key (kbd "C-c e") 'enlarge-window)
+(global-set-key (kbd "C-c C-u") 'uncomment-region)
+(global-set-key (kbd "C-c b") 'bury-buffer)
+(global-set-key (kbd "C-c c") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-c i") 'delete-enclosed-text)
+(global-set-key (kbd "C-c f") 'show-file-name)
+(global-set-key (kbd "M-n") 'next-line)
+(global-set-key (kbd "M-p") 'previous-line)
+(global-set-key (kbd "M-k") 'copy-line)
+(global-set-key (read-kbd-macro "<M-DEL>") 'backward-delete-word)
+(global-set-key (kbd "S-<down>")     'scroll-one-line-up)
+(global-set-key (kbd "S-<add>")      'scroll-one-line-up)
+(global-set-key (kbd "S-<up>")       'scroll-one-line-down)
+(global-set-key (kbd "S-<subtract>") 'scroll-one-line-down)
+(define-key global-map "\C-cv" 'vc-prefix-map)
+(global-set-key (kbd "C-c v v") 'vc-next-action)
+(global-set-key (kbd "C-x m") 'magit-status)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
