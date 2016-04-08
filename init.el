@@ -640,7 +640,13 @@ With argument ARG, do this that many times."
 (require 'editorconfig)
 (editorconfig-mode 1)
 
+(add-to-list 'load-path "~/tern/emacs/")
+(autoload 'tern-mode "tern.el" nil t)
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+   '(progn
+      (require 'tern-auto-complete)
+      (tern-ac-setup)))
 
 (set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
 (eval-after-load "tramp"
