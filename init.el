@@ -109,6 +109,7 @@ use to determine if the package is installed/loaded."
       remember-notes-buffer-name "*scratch*")
 
 (require 'smartparens-config)
+(add-hook 'clojure-mode-hook #'smartparens-strict-mode)
 (sp-pair "/" nil :actions :rem)
 
 (blink-cursor-mode t)
@@ -293,7 +294,9 @@ use to determine if the package is installed/loaded."
 
 ;; (setq cider-popup-stacktraces nil)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
+(add-hook 'clojure-mode-hook #'subword-mode)
 (add-hook 'clojure-mode-hook 'cider-mode)
+(require 'clojure-mode-extra-font-locking)
 
 (load "sql")
 ;; When starting a daemon loading sqlplus causes an error
