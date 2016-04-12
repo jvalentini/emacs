@@ -8,6 +8,7 @@
 (depends-on "cask")
 (depends-on "cider")
 (depends-on "clojure-mode")
+(depends-on "clojure-mode-extra-font-locking")
 (depends-on "coffee-mode")
 (depends-on "drag-stuff")
 (depends-on "editorconfig")
