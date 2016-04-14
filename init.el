@@ -833,6 +833,7 @@ Also returns nil if pid is nil."
      ("texi" . "*.texi")
      ("asm" . "*.[sS]")
      ("php" . "*.php *.inc"))))
+ '(helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
  '(ibuffer-saved-filter-groups
    (quote
     (("justin-default-buffer-groups"
@@ -895,7 +896,6 @@ Also returns nil if pid is nil."
         (mode . idl-mode)
         (mode . lisp-mode)))))))
  '(ido-cache-ftp-work-directory-time 0.1)
- '(magit-push-always-verify nil)
  '(js-indent-level 2)
  '(json-reformat:indent-width 2)
  '(magit-branch-arguments (quote ("--track")))
@@ -904,6 +904,7 @@ Also returns nil if pid is nil."
  '(magit-diff-use-overlays nil)
  '(magit-fetch-arguments (quote ("--prune")))
  '(magit-pull-arguments (quote ("--rebase")))
+ '(magit-push-always-verify nil)
  '(magit-push-arguments (quote ("--set-upstream")))
  '(magit-use-overlays nil)
  '(mode-require-final-newline nil)
@@ -932,8 +933,7 @@ Also returns nil if pid is nil."
  '(solarized-height-plus-2 1)
  '(solarized-height-plus-3 1)
  '(solarized-height-plus-4 1)
- '(sql-product (quote oracle))
- '(helm-ag-base-command "ag --nocolor --nogroup --ignore-case"))
+ '(sql-product (quote oracle)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
