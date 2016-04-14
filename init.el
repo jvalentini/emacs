@@ -684,6 +684,8 @@ Also returns nil if pid is nil."
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t
       helm-mode-fuzzy-match t
+      helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match t
       helm-completion-in-region-fuzzy-match t)
 (helm-mode 1)
 (helm-descbinds-mode)
