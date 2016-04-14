@@ -764,7 +764,7 @@ Also returns nil if pid is nil."
 ;; http://askubuntu.com/questions/243639/ctrlspace-has-been-bound-to-invoke-some-input-method-and-does-not-work-in-ema
 
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-(global-set-key (kbd "C-x i") 'ibuffer)
+(global-set-key (kbd "C-x i") 'kmacro-end-or-call-macro)
 (global-set-key (kbd "C-x g") 'helm-do-ag-project-root)
 (global-set-key (kbd "C-x p g") 'helm-do-ag-project-root)
 (global-set-key (kbd "C-x r u") 'upcase-rectangle)
