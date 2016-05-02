@@ -487,8 +487,6 @@ Also returns nil if pid is nil."
 (after 'tramp
   (setq tramp-default-method "ssh"))
 
-(global-aggressive-indent-mode 1)
-
 (after 'tramp-sh
   (when (and (= emacs-major-version 24) (< emacs-minor-version 4))
     ;; fix for http://debbugs.gnu.org/cgi/bugreport.cgi?bug=17238 until it's released in 24.4
