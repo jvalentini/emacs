@@ -32,6 +32,25 @@
   (if sqlpath
       (setenv "SQLPATH" sqlpath)))
 
+;; Setup for golang
+(defun set-exec-path-from-shell-PATH ()
+  (let ((path-from-shell (replace-regexp-in-string
+                          "[ \t\n]*$"
+                          ""
+                          (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq eshell-path-env path-from-shell) ; for eshell users
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(when window-system (set-exec-path-from-shell-PATH))
+
+;; Doesn't seem to be necessary for golang setup
+;; (setenv "GOPATH" "/Users/tleyden/Development/gocode")
+;; (getenv "GOPATH") ;; /home/jvalentini/.gvm/pkgsets/go1.5.1/global
+
+(setq gofmt-command "goimports")
+(add-hook 'before-save-hook 'gofmt-before-save)
+
 ;; All proxy config set in /etc/environment
 
 (defmacro after (mode &rest body)
