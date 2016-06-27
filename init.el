@@ -44,12 +44,29 @@
 
 (when window-system (set-exec-path-from-shell-PATH))
 
+(defun my-go-mode-hook ()
+  (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
+  (require 'golint)
+  (require 'go-autocomplete)
+  ; Use goimports instead of gofmt
+  (setq gofmt-command "goimports")
+  ; Call Gofmt before saving
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  ; Customize compile command to run go build
+  (if (not (string-match "go" compile-command))
+      (set (make-local-variable 'compile-command)
+           "go build -v && go test -v && go vet"))
+  ; Go oracle
+  (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+  ; Godef jump key binding
+  (local-set-key (kbd "M-.") 'godef-jump))
+(add-hook 'go-mode-hook 'my-go-mode-hook)
+
 ;; Doesn't seem to be necessary for golang setup
 ;; (setenv "GOPATH" "/Users/tleyden/Development/gocode")
 ;; (getenv "GOPATH") ;; /home/jvalentini/.gvm/pkgsets/go1.5.1/global
 
-(setq gofmt-command "goimports")
-(add-hook 'before-save-hook 'gofmt-before-save)
+;; (add-hook 'before-save-hook 'gofmt-before-save)
 
 ;; All proxy config set in /etc/environment
 
