@@ -52,6 +52,7 @@
 (depends-on "multiple-cursors")
 (depends-on "mustache-mode")
 (depends-on "nose")
+(depends-on "org")
 (depends-on "org-bullets")
 (depends-on "package-build")
 (depends-on "pallet")
