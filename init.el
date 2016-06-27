@@ -326,12 +326,12 @@ use to determine if the package is installed/loaded."
 (add-hook 'clojure-mode-hook 'cider-mode)
 (require 'clojure-mode-extra-font-locking)
 
-(load "sql")
+;; (load "sql")
 ;; When starting a daemon loading sqlplus causes an error
 ;; (load "sqlplus")
-(load "plsql")
-(load "my-sql")
-(load "my-erc")
+;; (load "plsql")
+;; (load "my-sql")
+;; (load "my-erc")
 
 ;; Deprecated. No longer using p4.
 ;; (load "p4")
@@ -440,13 +440,13 @@ With argument ARG, do this that many times."
 (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
 (add-hook 'cider-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
-(require 'clj-refactor)
-(defun my-clojure-mode-hook ()
-  (clj-refactor-mode 1)
-  (yas-minor-mode 1) ; for adding require/use/import statements
-  ;; This choice of keybinding leaves cider-macroexpand-1 unbound
-  (cljr-add-keybindings-with-prefix "C-c C-m"))
-(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+;; (require 'clj-refactor)
+;; (defun my-clojure-mode-hook ()
+;;   (clj-refactor-mode 1)
+;;   (yas-minor-mode 1) ; for adding require/use/import statements
+;;   ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+;;   (cljr-add-keybindings-with-prefix "C-c C-m"))
+;; (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (defun magit-default-tracking-name-branch-unescaped
     (remote branch)
