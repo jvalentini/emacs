@@ -918,7 +918,7 @@ Also returns nil if pid is nil."
  '(js-indent-level 2)
  '(json-reformat:indent-width 2)
  '(magit-branch-arguments (quote ("--track")))
- '(magit-commit-arguments (quote ("--gpg-sign=73DF50970839B87E")))
+ '(magit-commit-arguments nil)
  '(magit-default-tracking-name-function (quote magit-default-tracking-name-branch-unescaped))
  '(magit-diff-use-overlays nil)
  '(magit-fetch-arguments (quote ("--prune")))
