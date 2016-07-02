@@ -48,6 +48,7 @@
   (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
   (require 'golint)
   (require 'go-autocomplete)
+  (require 'go-projectile)
   ; Use goimports instead of gofmt
   (setq gofmt-command "goimports")
   ; Call Gofmt before saving
@@ -59,8 +60,12 @@
   ; Go oracle
   (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
   ; Godef jump key binding
-  (local-set-key (kbd "M-.") 'godef-jump))
+  (local-set-key (kbd "M-.") 'godef-jump)
+  (local-set-key (kbd "C-x u") 'go-test-current-file)
+  )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
+(add-hook 'go-mode-hook 'go-eldoc-setup)
+
 
 ;; Doesn't seem to be necessary for golang setup
 ;; (setenv "GOPATH" "/Users/tleyden/Development/gocode")
