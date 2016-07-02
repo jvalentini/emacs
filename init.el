@@ -840,7 +840,7 @@ Also returns nil if pid is nil."
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
- '(browse-url-browser-function (quote browse-url-firefox))
+ '(browse-url-browser-function (quote browse-url-chromium))
  '(comment-style (quote plain))
  '(custom-safe-themes
    (quote
