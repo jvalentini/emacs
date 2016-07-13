@@ -831,7 +831,7 @@ Also returns nil if pid is nil."
 (global-set-key (kbd "M-k") 'copy-line)
 (global-set-key (kbd "M-/") 'dabbrev-expand)
 (global-set-key (kbd "<f10>") 'toggle-frame-maximized)
-(global-set-key (read-kbd-macro "<M-DEL>") 'backward-delete-word)
+(global-set-key (read-kbd-macro "<M-DEL>") 'backward-kill-word)
 (global-set-key (kbd "S-<down>")     'scroll-one-line-up)
 (global-set-key (kbd "S-<add>")      'scroll-one-line-up)
 (global-set-key (kbd "S-<up>")       'scroll-one-line-down)
