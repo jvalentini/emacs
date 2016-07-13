@@ -24,3 +24,4 @@ smex-items
 var/
 tutorial/
 gotools/
+.sx/auth.el

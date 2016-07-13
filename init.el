@@ -87,6 +87,19 @@ use to determine if the package is installed/loaded."
   `(eval-after-load (symbol-name ,mode)
      '(progn ,@body)))
 
+
+(use-package sx
+  :config
+  (bind-keys :prefix "C-c s"
+             :prefix-map my-sx-map
+             :prefix-docstring "Global keymap for SX."
+             ("q" . sx-tab-all-questions)
+             ("i" . sx-inbox)
+             ("o" . sx-open-link)
+             ("u" . sx-tab-unanswered-my-tags)
+             ("a" . sx-ask)
+             ("s" . sx-search)))
+
 ;; disable ido faces to see flx highlights.
 ;; (after 'ido-ubiquitous-autoloads
 ;;   (setq ido-auto-merge-work-directories-length -1)
@@ -498,7 +511,7 @@ With argument ARG, do this that many times."
 (set-frame-parameter nil 'fullscreen 'maximized)
 
 (require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o" "C-c" "C-c C-d" "C-c h" "C-c !" "C-c ," "C-c C-o" "C-c C-f"))
+(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o" "C-c" "C-c C-d" "C-c h" "C-c !" "C-c ," "C-c C-o" "C-c C-f" "C-c s"))
 (guide-key-mode 1)
 
 (require 'auto-complete-config)

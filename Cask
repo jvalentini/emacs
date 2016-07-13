@@ -88,6 +88,7 @@
 (depends-on "smex")
 (depends-on "solarized-theme")
 (depends-on "sql-indent")
+(depends-on "sx")
 (depends-on "tern")
 (depends-on "use-package")
 (depends-on "vagrant")
