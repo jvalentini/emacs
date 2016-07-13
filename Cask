@@ -89,6 +89,7 @@
 (depends-on "solarized-theme")
 (depends-on "sql-indent")
 (depends-on "tern")
+(depends-on "use-package")
 (depends-on "vagrant")
 (depends-on "vagrant-tramp")
 (depends-on "virtualenvwrapper")

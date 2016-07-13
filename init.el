@@ -3,6 +3,8 @@
 (require 'pallet)
 (pallet-mode t)
 
+(require 'use-package)
+
 (when (and (= emacs-major-version 24) (>= emacs-minor-version 4))
   (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t))
 
