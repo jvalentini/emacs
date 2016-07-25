@@ -514,6 +514,13 @@ With argument ARG, do this that many times."
 (setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o" "C-c" "C-c C-d" "C-c h" "C-c !" "C-c ," "C-c C-o" "C-c C-f" "C-c s"))
 (guide-key-mode 1)
 
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region compilation-filter-start (point))
+  (toggle-read-only))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
 (require 'auto-complete-config)
 (ac-config-default)
 (setq ac-show-menu-immediately-on-auto-complete t)
