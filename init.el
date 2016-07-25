@@ -782,6 +782,8 @@ Also returns nil if pid is nil."
 
 (require 'haml-mode)
 
+(require 'nodejs-repl)
+
 (require 'editorconfig)
 (editorconfig-mode 1)
 
