@@ -389,7 +389,7 @@ use to determine if the package is installed/loaded."
 (add-to-list 'auto-mode-alist '("\\.inc$"    . php-mode))
 (add-to-list 'auto-mode-alist '("\\.rb$"     . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.css$"    . css-mode))
-(add-to-list 'auto-mode-alist '("\\.js$"     . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.js$"     . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml$"  . sgml-mode))
 (add-to-list 'auto-mode-alist '("\\.sql$"    . sql-mode))
 (add-to-list 'auto-mode-alist '("\\.sqp$"    . sqlplus-mode))
@@ -499,6 +499,11 @@ With argument ARG, do this that many times."
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
 (add-hook 'json-mode-hook #'enable-paredit-mode)
 
+(require 'js2-refactor)
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix "C-c C-m")
+
+
 ;; Add rainbow delimiters in all programming modes
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
@@ -511,7 +516,7 @@ With argument ARG, do this that many times."
 (set-frame-parameter nil 'fullscreen 'maximized)
 
 (require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o" "C-c" "C-c C-d" "C-c h" "C-c !" "C-c ," "C-c C-o" "C-c C-f" "C-c s"))
+(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o" "C-c" "C-c C-d" "C-c h" "C-c !" "C-c ," "C-c C-o" "C-c C-f" "C-c s" "C-c C-m"))
 (guide-key-mode 1)
 
 (require 'ansi-color)
@@ -962,6 +967,7 @@ Also returns nil if pid is nil."
         (mode . lisp-mode)))))))
  '(ido-cache-ftp-work-directory-time 0.1)
  '(js-indent-level 2)
+ '(js2-basic-offset 2)
  '(json-reformat:indent-width 2)
  '(magit-branch-arguments (quote ("--track")))
  '(magit-commit-arguments nil)
