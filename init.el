@@ -46,11 +46,22 @@
 
 (when window-system (set-exec-path-from-shell-PATH))
 
+;; Go oracle
+(load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+
+(defun my-save-and-recompile ()
+  (interactive)
+  (save-buffer)
+  (recompile)
+  )
+
 (defun my-go-mode-hook ()
   (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
-  (require 'golint)
-  (require 'go-autocomplete)
-  (require 'go-projectile)
+;;   (require 'golint)
+;;   (require 'go-autocomplete)
+;;   (require 'go-projectile)
+;;   (require 'go-direx) ;; Don't need to require, if you install by package.el
+  (define-key go-mode-map (kbd "C-c C-l") 'go-direx-pop-to-buffer)
   ; Use goimports instead of gofmt
   (setq gofmt-command "goimports")
   ; Call Gofmt before saving
@@ -59,11 +70,14 @@
   (if (not (string-match "go" compile-command))
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
-  ; Go oracle
-  (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
   ; Godef jump key binding
   (local-set-key (kbd "M-.") 'godef-jump)
   (local-set-key (kbd "C-x u") 'go-test-current-file)
+  (local-set-key (kbd "C-x y") 'my-save-and-recompile)
+  (local-set-key (kbd "C-x C-y") 'my-save-and-recompile)
+  (local-set-key (kbd "C-x C-d") 'godoc-at-point)
+  (local-set-key (kbd "C-x h") 'godoc)
+  (subword-mode 1)
   )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
