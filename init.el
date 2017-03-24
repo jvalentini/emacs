@@ -46,8 +46,9 @@
 
 (when window-system (set-exec-path-from-shell-PATH))
 
-;; Go oracle
-(load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+;; Go oracle / go guru
+;; (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+;; (load-file "$GOROO/Tsrc/golang.org/x/tools/cmd/oracle/oracle.el")
 
 (defun my-save-and-recompile ()
   (interactive)
@@ -69,10 +70,13 @@
   ; Customize compile command to run go build
   (if (not (string-match "go" compile-command))
       (set (make-local-variable 'compile-command)
-           "go build -v && go test -v && go vet"))
+           "cd $(realpath $PWD) && go build -v && go test -v && go vet"))
   ; Godef jump key binding
   (local-set-key (kbd "M-.") 'godef-jump)
   (local-set-key (kbd "C-x u") 'go-test-current-file)
+  (local-set-key (kbd "C-x i") 'go-test-current-test)
+  (local-set-key (kbd "<f5>") 'go-test-current-file)
+  (local-set-key (kbd "<f6>") 'go-test-current-test)
   (local-set-key (kbd "C-x y") 'my-save-and-recompile)
   (local-set-key (kbd "C-x C-y") 'my-save-and-recompile)
   (local-set-key (kbd "C-x C-d") 'godoc-at-point)
@@ -81,11 +85,23 @@
   )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
+(add-hook 'go-mode-hook #'gorepl-mode)
+(add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
+(eval-after-load 'go-mode
+  '(substitute-key-definition 'go-import-add 'helm-go-package go-mode-map))
 
 
 ;; Doesn't seem to be necessary for golang setup
-;; (setenv "GOPATH" "/Users/tleyden/Development/gocode")
-;; (getenv "GOPATH") ;; /home/jvalentini/.gvm/pkgsets/go1.5.1/global
+(setenv "GOROOT" "/home/jvalentini/.gvm/gos/go1.5.1")
+(setenv "GOPATH" "/home/jvalentini/.gvm/pkgsets/go1.5.1/global")
+
+;; (setenv "GOROOT" "/home/jvalentini/.gvm/gos/go1.7")
+;; (setenv "GOPATH" "/home/jvalentini/.gvm/pkgsets/go1.7/global")
+(setenv "PATH" (concat (getenv "GOROOT") "/bin:" (getenv "PATH")))
+
+;; (getenv "GOROOT")
+;; (getenv "GOPATH")
+;; (getenv "PATH")
 
 ;; (add-hook 'before-save-hook 'gofmt-before-save)
 
@@ -317,6 +333,14 @@ use to determine if the package is installed/loaded."
 ;;                                 "';'.join(module_completion('''%s'''))\n"
 ;;                                 python-shell-completion-string-code
 ;;                                 "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")))
+
+(elpy-enable)
+;; (elpy-use-ipython)
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 (autoload 'ruby-mode "ruby-mode" nil t)
 (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
@@ -571,113 +595,113 @@ Also returns nil if pid is nil."
 (after 'tramp
   (setq tramp-default-method "ssh"))
 
-(after 'tramp-sh
-  (when (and (= emacs-major-version 24) (< emacs-minor-version 4))
-    ;; fix for http://debbugs.gnu.org/cgi/bugreport.cgi?bug=17238 until it's released in 24.4
-    (defun tramp-sh-handle-file-truename (filename &optional counter prev-dirs)
-      "Like `file-truename' for Tramp files."
-      (with-parsed-tramp-file-name (expand-file-name filename) nil
-        (tramp-make-tramp-file-name method user host
-                                    (with-tramp-file-property v localname "file-truename"
-                                      (let ((result nil)) ; result steps in reverse order
-                                        (tramp-message v 4 "Finding true name for `%s'" filename)
-                                        (cond
-                                         ;; Use GNU readlink --canonicalize-missing where available.
-                                         ((tramp-get-remote-readlink v)
-                                          (setq result
-                                                (tramp-send-command-and-read
-                                                 v
-                                                 (format "echo \"\\\"`%s --canonicalize-missing %s`\\\"\""
-                                                         (tramp-get-remote-readlink v)
-                                                         (tramp-shell-quote-argument (tramp-shell-quote-argument localname))))))
-                                         ;; Use Perl implementation.
-                                         ((and (tramp-get-remote-perl v)
-                                               (tramp-get-connection-property v "perl-file-spec" nil)
-                                               (tramp-get-connection-property v "perl-cwd-realpath" nil))
-                                          (tramp-maybe-send-script
-                                           v tramp-perl-file-truename "tramp_perl_file_truename")
-                                          (setq result
-                                                (tramp-send-command-and-read
-                                                 v
-                                                 (format "tramp_perl_file_truename %s"
-                                                         (tramp-shell-quote-argument localname)))))
-                                         ;; Do it yourself. We bind `directory-sep-char' here for
-                                         ;; XEmacs on Windows, which would otherwise use backslash.
-                                         (t (let* ((directory-sep-char ?/)
-                                                   (steps (tramp-compat-split-string localname "/"))
-                                                   (localnamedir (tramp-run-real-handler
-                                                                  'file-name-as-directory (list localname)))
-                                                   (is-dir (string= localname localnamedir))
-                                                   (thisstep nil)
-                                                   (numchase 0)
-                                                   ;; Don't make the following value larger than
-                                                   ;; necessary. People expect an error message in
-                                                   ;; a timely fashion when something is wrong;
-                                                   ;; otherwise they might think that Emacs is hung.
-                                                   ;; Of course, correctness has to come first.
-                                                   (numchase-limit 20)
-                                                   symlink-target)
-                                              (while (and steps (< numchase numchase-limit))
-                                                (setq thisstep (pop steps))
-                                                (tramp-message
-                                                 v 5 "Check %s"
-                                                 (mapconcat 'identity
-                                                            (append '("") (reverse result) (list thisstep))
-                                                            "/"))
-                                                (setq symlink-target
-                                                      (nth 0 (file-attributes
-                                                              (tramp-make-tramp-file-name
-                                                               method user host
-                                                               (mapconcat 'identity
-                                                                          (append '("")
-                                                                                  (reverse result)
-                                                                                  (list thisstep))
-                                                                          "/")))))
-                                                (cond ((string= "." thisstep)
-                                                       (tramp-message v 5 "Ignoring step `.'"))
-                                                      ((string= ".." thisstep)
-                                                       (tramp-message v 5 "Processing step `..'")
-                                                       (pop result))
-                                                      ((stringp symlink-target)
-                                                       ;; It's a symlink, follow it.
-                                                       (tramp-message
-                                                        v 5 "Follow symlink to %s" symlink-target)
-                                                       (setq numchase (1+ numchase))
-                                                       (when (file-name-absolute-p symlink-target)
-                                                         (setq result nil))
-                                                       ;; If the symlink was absolute, we'll get a
-                                                       ;; string like "/user@host:/some/target";
-                                                       ;; extract the "/some/target" part from it.
-                                                       (when (tramp-tramp-file-p symlink-target)
-                                                         (unless (tramp-equal-remote filename symlink-target)
-                                                           (tramp-error
-                                                            v 'file-error
-                                                            "Symlink target `%s' on wrong host"
-                                                            symlink-target))
-                                                         (setq symlink-target localname))
-                                                       (setq steps
-                                                             (append (tramp-compat-split-string
-                                                                      symlink-target "/")
-                                                                     steps)))
-                                                      (t
-                                                       ;; It's a file.
-                                                       (setq result (cons thisstep result)))))
-                                              (when (>= numchase numchase-limit)
-                                                (tramp-error
-                                                 v 'file-error
-                                                 "Maximum number (%d) of symlinks exceeded" numchase-limit))
-                                              (setq result (reverse result))
-                                              ;; Combine list to form string.
-                                              (setq result
-                                                    (if result
-                                                        (mapconcat 'identity (cons "" result) "/")
-                                                      "/"))
-                                              (when (and is-dir
-                                                         (or (string= "" result)
-                                                             (not (string= (substring result -1) "/"))))
-                                                (setq result (concat result "/"))))))
-                                        (tramp-message v 4 "True name of `%s' is `%s'" localname result)
-                                        result)))))))
+;; (after 'tramp-sh
+;;   (when (and (= emacs-major-version 24) (< emacs-minor-version 4))
+;;     ;; fix for http://debbugs.gnu.org/cgi/bugreport.cgi?bug=17238 until it's released in 24.4
+;;     (defun tramp-sh-handle-file-truename (filename &optional counter prev-dirs)
+;;       "Like `file-truename' for Tramp files."
+;;       (with-parsed-tramp-file-name (expand-file-name filename) nil
+;;         (tramp-make-tramp-file-name method user host
+;;                                     (with-tramp-file-property v localname "file-truename"
+;;                                       (let ((result nil)) ; result steps in reverse order
+;;                                         (tramp-message v 4 "Finding true name for `%s'" filename)
+;;                                         (cond
+;;                                          ;; Use GNU readlink --canonicalize-missing where available.
+;;                                          ((tramp-get-remote-readlink v)
+;;                                           (setq result
+;;                                                 (tramp-send-command-and-read
+;;                                                  v
+;;                                                  (format "echo \"\\\"`%s --canonicalize-missing %s`\\\"\""
+;;                                                          (tramp-get-remote-readlink v)
+;;                                                          (tramp-shell-quote-argument (tramp-shell-quote-argument localname))))))
+;;                                          ;; Use Perl implementation.
+;;                                          ((and (tramp-get-remote-perl v)
+;;                                                (tramp-get-connection-property v "perl-file-spec" nil)
+;;                                                (tramp-get-connection-property v "perl-cwd-realpath" nil))
+;;                                           (tramp-maybe-send-script
+;;                                            v tramp-perl-file-truename "tramp_perl_file_truename")
+;;                                           (setq result
+;;                                                 (tramp-send-command-and-read
+;;                                                  v
+;;                                                  (format "tramp_perl_file_truename %s"
+;;                                                          (tramp-shell-quote-argument localname)))))
+;;                                          ;; Do it yourself. We bind `directory-sep-char' here for
+;;                                          ;; XEmacs on Windows, which would otherwise use backslash.
+;;                                          (t (let* ((directory-sep-char ?/)
+;;                                                    (steps (tramp-compat-split-string localname "/"))
+;;                                                    (localnamedir (tramp-run-real-handler
+;;                                                                   'file-name-as-directory (list localname)))
+;;                                                    (is-dir (string= localname localnamedir))
+;;                                                    (thisstep nil)
+;;                                                    (numchase 0)
+;;                                                    ;; Don't make the following value larger than
+;;                                                    ;; necessary. People expect an error message in
+;;                                                    ;; a timely fashion when something is wrong;
+;;                                                    ;; otherwise they might think that Emacs is hung.
+;;                                                    ;; Of course, correctness has to come first.
+;;                                                    (numchase-limit 20)
+;;                                                    symlink-target)
+;;                                               (while (and steps (< numchase numchase-limit))
+;;                                                 (setq thisstep (pop steps))
+;;                                                 (tramp-message
+;;                                                  v 5 "Check %s"
+;;                                                  (mapconcat 'identity
+;;                                                             (append '("") (reverse result) (list thisstep))
+;;                                                             "/"))
+;;                                                 (setq symlink-target
+;;                                                       (nth 0 (file-attributes
+;;                                                               (tramp-make-tramp-file-name
+;;                                                                method user host
+;;                                                                (mapconcat 'identity
+;;                                                                           (append '("")
+;;                                                                                   (reverse result)
+;;                                                                                   (list thisstep))
+;;                                                                           "/")))))
+;;                                                 (cond ((string= "." thisstep)
+;;                                                        (tramp-message v 5 "Ignoring step `.'"))
+;;                                                       ((string= ".." thisstep)
+;;                                                        (tramp-message v 5 "Processing step `..'")
+;;                                                        (pop result))
+;;                                                       ((stringp symlink-target)
+;;                                                        ;; It's a symlink, follow it.
+;;                                                        (tramp-message
+;;                                                         v 5 "Follow symlink to %s" symlink-target)
+;;                                                        (setq numchase (1+ numchase))
+;;                                                        (when (file-name-absolute-p symlink-target)
+;;                                                          (setq result nil))
+;;                                                        ;; If the symlink was absolute, we'll get a
+;;                                                        ;; string like "/user@host:/some/target";
+;;                                                        ;; extract the "/some/target" part from it.
+;;                                                        (when (tramp-tramp-file-p symlink-target)
+;;                                                          (unless (tramp-equal-remote filename symlink-target)
+;;                                                            (tramp-error
+;;                                                             v 'file-error
+;;                                                             "Symlink target `%s' on wrong host"
+;;                                                             symlink-target))
+;;                                                          (setq symlink-target localname))
+;;                                                        (setq steps
+;;                                                              (append (tramp-compat-split-string
+;;                                                                       symlink-target "/")
+;;                                                                      steps)))
+;;                                                       (t
+;;                                                        ;; It's a file.
+;;                                                        (setq result (cons thisstep result)))))
+;;                                               (when (>= numchase numchase-limit)
+;;                                                 (tramp-error
+;;                                                  v 'file-error
+;;                                                  "Maximum number (%d) of symlinks exceeded" numchase-limit))
+;;                                               (setq result (reverse result))
+;;                                               ;; Combine list to form string.
+;;                                               (setq result
+;;                                                     (if result
+;;                                                         (mapconcat 'identity (cons "" result) "/")
+;;                                                       "/"))
+;;                                               (when (and is-dir
+;;                                                          (or (string= "" result)
+;;                                                              (not (string= (substring result -1) "/"))))
+;;                                                 (setq result (concat result "/"))))))
+;;                                         (tramp-message v 4 "True name of `%s' is `%s'" localname result)
+;;                                         result)))))))
 
 
 ;; (require 'multiple-cursors)
@@ -795,50 +819,51 @@ Also returns nil if pid is nil."
 ;;       (require 'tern-auto-complete)
 ;;       (tern-ac-setup)))
 
-;; (set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
-;; (eval-after-load "tramp"
-;;   '(progn
-;;      (defvar sudo-tramp-prefix
-;;        "/sudo:"
-;;        (concat "Prefix to be used by sudo commands when building tramp path "))
-;;      (defun sudo-file-name (filename)
-;;        (set 'splitname (split-string filename ":"))
-;;        (if (> (length splitname) 1)
-;;          (progn (set 'final-split (cdr splitname))
-;;                 (set 'sudo-tramp-prefix "/sudo:")
-;;                 )
-;;          (progn (set 'final-split splitname)
-;;                 (set 'sudo-tramp-prefix (concat sudo-tramp-prefix "root@localhost:")))
-;;          )
-;;        (set 'final-fn (concat sudo-tramp-prefix (mapconcat (lambda (e) e) final-split ":")))
-;;        (message "splitname is %s" splitname)
-;;        (message "sudo-tramp-prefix is %s" sudo-tramp-prefix)
-;;        (message "final-split is %s" final-split)
-;;        (message "final-fn is %s" final-fn)
-;;        (message "%s" final-fn)
-;;        )
+(set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
+(eval-after-load "tramp"
+  '(progn
+     (defvar sudo-tramp-prefix
+       "/sudo:"
+       (concat "Prefix to be used by sudo commands when building tramp path "))
+     (defun sudo-file-name (filename)
+       (set 'splitname (split-string filename ":"))
+       (if (> (length splitname) 1)
+           (progn (set 'final-split (cdr splitname))
+                  (set 'sudo-tramp-prefix "/sudo:")
+                  )
+         (progn (set 'final-split splitname)
+                (set 'sudo-tramp-prefix (concat sudo-tramp-prefix "root@localhost:")))
+         )
+       (set 'final-fn (concat sudo-tramp-prefix (mapconcat (lambda (e) e) final-split ":")))
+       (message "splitname is %s" splitname)
+       (message "sudo-tramp-prefix is %s" sudo-tramp-prefix)
+       (message "final-split is %s" final-split)
+       (message "final-fn is %s" final-fn)
+       (message "%s" final-fn)
+       )
 
-;;      (defun sudo-find-file (filename &optional wildcards)
-;;        "Calls find-file with filename with sudo-tramp-prefix prepended"
-;;        (interactive "fFind file with sudo ")
-;;        (let ((sudo-name (sudo-file-name filename)))
-;;          (apply 'find-file
-;;                 (cons sudo-name (if (boundp 'wildcards) '(wildcards))))))
+     (defun sudo-find-file (filename &optional wildcards)
+       "Calls find-file with filename with sudo-tramp-prefix prepended"
+       (interactive "fFind file with sudo ")
+       (let ((sudo-name (sudo-file-name filename)))
+         (apply 'find-file
+                (cons sudo-name (if (boundp 'wildcards) '(wildcards))))))
 
-;;      (defun sudo-reopen-file ()
-;;        "Reopen file as root by prefixing its name with sudo-tramp-prefix and by clearing buffer-read-only"
-;;        (interactive)
-;;        (let*
-;;            ((file-name (expand-file-name buffer-file-name))
-;;             (sudo-name (sudo-file-name file-name)))
-;;          (progn
-;;            (setq buffer-file-name sudo-name)
-;;            (rename-buffer sudo-name)
-;;            (setq buffer-read-only nil)
-;;            (message (concat "File name set to " sudo-name)))))
+     (defun sudo-reopen-file ()
+       "Reopen file as root by prefixing its name with sudo-tramp-prefix and by clearing buffer-read-only"
+       (interactive)
+       (let*
+           ((file-name (expand-file-name buffer-file-name))
+            (sudo-name (sudo-file-name file-name)))
+         (progn
+           (setq buffer-file-name sudo-name)
+           (rename-buffer sudo-name)
+           (setq buffer-read-only nil)
+           (message (concat "File name set to " sudo-name)))))
 
-;;      ;;(global-set-key (kbd "C-c o") 'sudo-find-file)
-;;      (global-set-key (kbd "C-c o") 'sudo-reopen-file)))
+     ;;(global-set-key (kbd "C-c o") 'sudo-find-file)
+     ;; (global-set-key (kbd "C-c o") 'sudo-reopen-file)
+     ))
 
 ;; (global-wakatime-mode)
 
@@ -893,6 +918,8 @@ Also returns nil if pid is nil."
  '(custom-safe-themes
    (quote
     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(elm-sort-imports-on-save t)
+ '(elpy-test-runner (quote elpy-test-pytest-runner))
  '(erc-auto-query (quote frame))
  '(erc-email-userid "justin.valentini@gmail.com")
  '(erc-generate-log-file-name-function (quote erc-generate-log-file-name-network))
@@ -985,7 +1012,7 @@ Also returns nil if pid is nil."
  '(js-indent-level 2)
  '(js2-basic-offset 2)
  '(json-reformat:indent-width 2)
- '(magit-branch-arguments (quote ("--track")))
+ '(magit-branch-arguments nil)
  '(magit-commit-arguments nil)
  '(magit-default-tracking-name-function (quote magit-default-tracking-name-branch-unescaped))
  '(magit-diff-use-overlays nil)
@@ -999,6 +1026,7 @@ Also returns nil if pid is nil."
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "vendor")))
  '(python-check-command "pylint")
+ '(require-final-newline t)
  '(safe-local-variable-values (quote ((firestarter . ert-run-tests-interactively))))
  '(smart-compile-alist
    (quote
