@@ -48,7 +48,7 @@
 
 ;; Go oracle / go guru
 ;; (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
-;; (load-file "$GOROO/Tsrc/golang.org/x/tools/cmd/oracle/oracle.el")
+;; (load-file "$GOROOT/src/golang.org/x/tools/cmd/oracle/oracle.el")
 
 (defun my-save-and-recompile ()
   (interactive)
