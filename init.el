@@ -56,10 +56,21 @@
   (recompile)
   )
 
+
+(defun coder/go-guru-set-current-package-as-main ()
+  "GoGuru requires the scope to be set to a go package which
+   contains a main, this function will make the current package the
+   active go guru scope, assuming it contains a main"
+  (interactive)
+  (let* ((filename (buffer-file-name))
+         (gopath-src-path (concat (file-name-as-directory (go-guess-gopath)) "src"))
+         (relative-package-path (directory-file-name (file-name-directory (file-relative-name filename gopath-src-path)))))
+    (setq go-guru-scope relative-package-path)))
+
 (defun my-go-mode-hook ()
   (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
 ;;   (require 'golint)
-;;   (require 'go-autocomplete)
+  (require 'go-autocomplete)
 ;;   (require 'go-projectile)
 ;;   (require 'go-direx) ;; Don't need to require, if you install by package.el
   (define-key go-mode-map (kbd "C-c C-l") 'go-direx-pop-to-buffer)
@@ -82,10 +93,13 @@
   (local-set-key (kbd "C-x C-d") 'godoc-at-point)
   (local-set-key (kbd "C-x h") 'godoc)
   (subword-mode 1)
+
+  ;;   (flycheck-gometalinter-setup)
+;;   (setq flycheck-gometalinter-fast t)
   )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
-(add-hook 'go-mode-hook #'gorepl-mode)
+;; (add-hook 'go-mode-hook #'gorepl-mode)
 (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
 (eval-after-load 'go-mode
   '(substitute-key-definition 'go-import-add 'helm-go-package go-mode-map))
@@ -396,6 +410,9 @@ use to determine if the package is installed/loaded."
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
+(global-set-key (kbd "C-o") 'move-end-of-line)
+
+(sml/setup)
 
 ;; (setq cider-popup-stacktraces nil)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
@@ -536,6 +553,34 @@ With argument ARG, do this that many times."
 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
 (add-hook 'json-mode-hook #'enable-paredit-mode)
+(global-set-key (kbd "C-M-u") #'paredit-backward-up)
+(global-set-key (kbd "C-M-n") #'paredit-forward-up)
+;; This one's surpisingly useful for writing prose.
+(global-set-key "\M-S"
+  #'paredit-splice-sexp-killing-backward)
+(global-set-key "\M-R" #'paredit-raise-sexp)
+(global-set-key "\M-(" #'paredit-wrap-round)
+(global-set-key "\M-[" #'paredit-wrap-square)
+(global-set-key "\M-{" #'paredit-wrap-curly)
+
+
+(defun endless/fill-or-unfill ()
+  "Like `fill-paragraph', but unfill if used twice."
+  (interactive)
+  (let ((fill-column
+         (if (eq last-command 'endless/fill-or-unfill)
+             (progn (setq this-command nil)
+                    (point-max))
+           fill-column)))
+    (call-interactively #'fill-paragraph)))
+(global-set-key "\M-q" #'endless/fill-or-unfill)
+(global-set-key [remap fill-paragraph]
+                #'endless/fill-or-unfill)
+
+
+(require 'docker-compose-mode)
+(require 'dockerfile-mode)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
 (require 'js2-refactor)
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
@@ -554,7 +599,7 @@ With argument ARG, do this that many times."
 (set-frame-parameter nil 'fullscreen 'maximized)
 
 (require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o" "C-c" "C-c C-d" "C-c h" "C-c !" "C-c ," "C-c C-o" "C-c C-f" "C-c s" "C-c C-m"))
+(setq guide-key/guide-key-sequence '("C-x r" "C-x /" "C-x a" "C-c p" "C-c C-x" "C-c /" "C-c C-o" "C-c" "C-c C-d" "C-c h" "C-c !" "C-c ," "C-c C-o" "C-c C-f" "C-c s" "C-c C-m" "C-c !"))
 (guide-key-mode 1)
 
 (require 'ansi-color)
@@ -917,7 +962,7 @@ Also returns nil if pid is nil."
  '(comment-style (quote plain))
  '(custom-safe-themes
    (quote
-    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(elm-sort-imports-on-save t)
  '(elpy-test-runner (quote elpy-test-pytest-runner))
  '(erc-auto-query (quote frame))
