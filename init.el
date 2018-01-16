@@ -930,6 +930,8 @@ Also returns nil if pid is nil."
 
 ;; (global-wakatime-mode)
 
+;; (require 'ox-ioslide)
+
 ;; (set-fringe-style -1)
 
 ;; Ctrl+space, Ctrl + space not working then install dconf-editor,

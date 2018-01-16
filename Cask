@@ -107,6 +107,7 @@
 (depends-on "oauth2")
 (depends-on "org")
 (depends-on "org-bullets")
+(depends-on "ox-ioslide")
 (depends-on "package-build")
 (depends-on "pallet")
 (depends-on "paradox")
