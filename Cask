@@ -109,6 +109,7 @@
 (depends-on "org-bullets")
 (depends-on "package-build")
 (depends-on "pallet")
+(depends-on "paradox")
 (depends-on "paredit")
 (depends-on "pcache")
 (depends-on "php-mode")

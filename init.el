@@ -1,3 +1,10 @@
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
@@ -646,6 +653,9 @@ Also returns nil if pid is nil."
 (require 'elfeed-goodies)
 (elfeed-org)
 (elfeed-goodies/setup)
+
+(setq paradox-github-token "811fd6f3a92a5720a616c0de6a0457bc0a4638c3")
+
 ;; (after 'tramp-sh
 ;;   (when (and (= emacs-major-version 24) (< emacs-minor-version 4))
 ;;     ;; fix for http://debbugs.gnu.org/cgi/bugreport.cgi?bug=17238 until it's released in 24.4
@@ -1076,6 +1086,8 @@ Also returns nil if pid is nil."
  '(magit-push-arguments (quote ("--set-upstream")))
  '(magit-use-overlays nil)
  '(mode-require-final-newline nil)
+ '(paradox-automatically-star t)
+ '(paradox-github-token t)
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "vendor")))
