@@ -654,6 +654,8 @@ Also returns nil if pid is nil."
 (elfeed-org)
 (elfeed-goodies/setup)
 
+(add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
+
 (setq paradox-github-token "811fd6f3a92a5720a616c0de6a0457bc0a4638c3")
 
 ;; (after 'tramp-sh
