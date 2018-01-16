@@ -6,6 +6,7 @@
 (depends-on "ac-cider")
 (depends-on "ac-inf-ruby")
 (depends-on "alert")
+(depends-on "ansible")
 (depends-on "async")
 (depends-on "auto-async-byte-compile")
 (depends-on "auto-complete")
