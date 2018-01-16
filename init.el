@@ -656,7 +656,7 @@ Also returns nil if pid is nil."
 
 (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
 
-(setq paradox-github-token "811fd6f3a92a5720a616c0de6a0457bc0a4638c3")
+(setq paradox-github-token "")
 
 ;; (after 'tramp-sh
 ;;   (when (and (= emacs-major-version 24) (< emacs-minor-version 4))
