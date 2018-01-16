@@ -640,6 +640,12 @@ Also returns nil if pid is nil."
 (after 'tramp
   (setq tramp-default-method "ssh"))
 
+(global-set-key (kbd "C-x w") 'elfeed)
+(require 'elfeed)
+(require 'elfeed-org)
+(require 'elfeed-goodies)
+(elfeed-org)
+(elfeed-goodies/setup)
 ;; (after 'tramp-sh
 ;;   (when (and (= emacs-major-version 24) (< emacs-minor-version 4))
 ;;     ;; fix for http://debbugs.gnu.org/cgi/bugreport.cgi?bug=17238 until it's released in 24.4
@@ -962,7 +968,10 @@ Also returns nil if pid is nil."
  '(comment-style (quote plain))
  '(custom-safe-themes
    (quote
-    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+    ("bfdcbf0d33f3376a956707e746d10f3ef2d8d9caa1c214361c9c08f00a1c8409" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(elfeed-feeds
+   (quote
+    ("http://dontmesswithtaxes.typepad.com/dont_mess_with_taxes/atom.xml" "http://jlcollinsnh.wordpress.com/feed/" "http://feeds.kitces.com/KitcesNerdsEyeView" "http://www.madfientist.com/feed/" "http://www.coachcarson.com/feed/" "http://www.gocurrycracker.com/feed/" "http://ournextlife.com/feed/" "http://fi180.com/feed/" "http://feeds.feedburner.com/MrMoneyMustache" "http://rootofgood.com/feed/" "http://feeds.feedburner.com/Frugalwoods" "http://earlyretirementextreme.com/feed" "http://wealthyaccountant.com/feed/" "http://www.thefrugalfarmer.net/feed/" "http://feeds.feedburner.com/FinancialSamurai" "http://www.1500days.com/feed/" "http://moneyboss.com/feed/" "http://www.millennial-revolution.com/feed/" "http://deals.kinja.com/rss" "http://endlessparentheses.com/atom.xml" "http://feeds.feedburner.com/sachac" "http://blog.cleancoder.com/atom.xml" "http://artofproductpodcast.com/rss" "http://oremacs.com/atom.xml" "http://www.masteringemacs.org/feed/" "http://feeds.feedburner.com/catonmat" "http://budgetbytes.blogspot.com/feeds/posts/default" "http://feeds2.feedburner.com/5Dinners" "http://www.acting-man.com/?feed=rss2" "http://mishtalk.com/feed/" "http://feeds.feedburner.com/John_Mauldin_Outside_The_Box" "http://econlog.econlib.org/indexcaplan.xml" "http://wolfstreet.com/feed/" "https://www.themaven.net/api/rss/channels/mishtalk" "http://epsilontheory.com/feed/" "http://bastiat.mises.org/feed/" "http://feeds.feedburner.com/google/RzFQ" "http://feeds.feedburner.com/CoinDesk" "http://unchained.forbes.libsynpro.com/rss?format=xml" "http://feeds.feedburner.com/EpicenterBitcoin" "http://cointelegraph.com/rss" "http://feeds.feedburner.com/BitcoinMagazine" "http://emacsrocks.com/atom.xml" "http://feeds.feedburner.com/SlickdealsnetFP")))
  '(elm-sort-imports-on-save t)
  '(elpy-test-runner (quote elpy-test-pytest-runner))
  '(erc-auto-query (quote frame))
