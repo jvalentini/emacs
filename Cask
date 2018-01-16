@@ -135,7 +135,6 @@
 (depends-on "shut-up")
 (depends-on "slamhound")
 (depends-on "smart-compile")
-(depends-on "smart-mode-line")
 (depends-on "smartparens")
 (depends-on "smex")
 (depends-on "solarized-theme")
